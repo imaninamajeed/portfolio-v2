@@ -1,0 +1,26 @@
+.header {
+  background-color: #000;
+  color: #fff;
+  padding: 1rem;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navList {
+  display: flex;
+  gap: 1rem;
+}
+
+.navList a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.navList a:hover {
+  color: #ccc;
+}
