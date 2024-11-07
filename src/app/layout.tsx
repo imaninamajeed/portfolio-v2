@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import '@/app/styles/globals.css';
 import Navbar from "@/app/ui/navbar";
+import Footer from "@/app/ui/footer";
 import { inter } from "@/app/fonts/fonts";
 
 export const metadata: Metadata = {
@@ -18,11 +19,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} antialiased`}>
+    <html lang="en" className="h-full">
+      <body className={`${inter.className} antialiased flex flex-col min-h-screen`}>
         <Navbar />
-
-        {children}
+        <main className="flex-grow">{children}</main>
+        <Footer />
       </body>
     </html>
   );
