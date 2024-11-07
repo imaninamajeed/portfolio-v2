@@ -1,13 +1,14 @@
 import Image from "next/image";
 import Link from 'next/link';
-import { FolderIcon, EnvelopeIcon } from '@heroicons/react/24/outline'; // Importing icons from Heroicons
-import { FaLinkedin, FaGithub } from "react-icons/fa";
-import { HiDocument } from "react-icons/hi";
+import { FolderIcon, EnvelopeIcon } from '@heroicons/react/24/outline';
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_0fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+    <div className="grid grid-rows-[20px_0fr_20px] items-center justify-items-center gap-16 font-[family-name:var(--font-geist-sans)]">
+
+      {/* Main Content */}
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+        {/* <main className="flex flex-col items-center gap-10 px-6 py-10 sm:py-16 sm:px-12 max-w-screen-2xl font-[family-name:var(--font-geist-sans)] space-y-10"> */}
         <div className="flex items-center gap-4">
           <Image
             src="/profile.png"
@@ -62,37 +63,6 @@ export default function Home() {
           </li>
         </ol>
       </main>
-
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <Link
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://linkedin.com/in/imaninamajeed"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <FaLinkedin className="h-6 w-6 text-blue-600" aria-hidden />
-          LinkedIn
-        </Link>
-        <Link
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://github.com/imaninamajeed"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <FaGithub className="h-6 w-6 text-gray-800 dark:text-white" aria-hidden />
-          GitHub
-        </Link>
-        <Link
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="/resume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <HiDocument className="h-6 w-6 text-gray-800 dark:text-white" aria-hidden />
-          Resume
-        </Link>
-
-      </footer>
     </div>
   );
 }
