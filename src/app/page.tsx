@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { FolderIcon, EnvelopeIcon } from '@heroicons/react/24/outline'; // Importing icons from Heroicons
 import { FaLinkedin, FaGithub } from "react-icons/fa";
 import { HiDocument } from "react-icons/hi";
-import { lusitana } from "@/app/fonts/fonts";
 
 export default function Home() {
   return (

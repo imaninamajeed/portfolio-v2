@@ -8,9 +8,9 @@ import PortfolioLogo from '@/app/ui/portfolio-logo';
 export default function Navbar() {
 
     return (
-        <header className="bg-black text-white">
-            <div className="container mx-auto flex items-center justify-between p-4">
-                <Link href="/" className="flex items-center">
+        <header className={`bg-black text-white ${styles.header}`}>
+            <div className={`container mx-auto flex items-center justify-between p-4 ${styles.container}`}>
+                <Link href="/" className={`flex items-center`}>
                     <PortfolioLogo />
                 </Link>
                 <nav className="flex space-x-4">
