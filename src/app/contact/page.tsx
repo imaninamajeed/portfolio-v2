@@ -1,4 +1,8 @@
 const page = () => {
+    const handleSubmit = (event: React.FormEvent) => {
+        event.preventDefault();
+        alert('Sorry, this page is unavailable now. You can proceed to the footer to contact me.');
+    };
     return (
         <div className="flex flex-col">
             <div className="container mx-auto p-6 flex-grow max-w-lg">
@@ -8,7 +12,7 @@ const page = () => {
                 <p className="text-center text-gray-700 text-lg mb-8">
                     Have a question or just want to say hi? Reach out!
                 </p>
-                <form className="space-y-6 bg-white p-8 rounded-lg shadow-lg">
+                <form className="space-y-6 bg-white p-8 rounded-lg shadow-lg" onSubmit={handleSubmit}>
                     <div>
                         <label htmlFor="name" className="block text-base font-semibold text-gray-700">
                             Name
