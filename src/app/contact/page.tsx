@@ -1,3 +1,4 @@
+"use client";
 const page = () => {
     const handleSubmit = (event: React.FormEvent) => {
         event.preventDefault();
