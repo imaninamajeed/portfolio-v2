@@ -1,4 +1,5 @@
 import { FaBriefcase, FaHeart, FaGraduationCap, FaLaptopCode, FaRegUserCircle, FaCode, FaTools, FaCogs, FaProjectDiagram } from 'react-icons/fa';
+import Image from 'next/image';
 
 const AboutPage = () => {
     return (
@@ -8,9 +9,11 @@ const AboutPage = () => {
                 <div className="flex flex-col md:flex-row gap-6 mb-6 items-stretch">
                     {/* Profile Picture */}
                     <div className="flex-shrink-0 rounded-lg p-10 shadow-lg flex items-center justify-center transform transition duration-300 ease-in-out hover:scale-105">
-                        <img
+                        <Image
                             src="/passport.png"
                             alt="Profile Picture"
+                            width={192}
+                            height={192}
                             className="w-48 h-48 rounded-full bg-white border-8 border-x-purple-500 shadow-lg hover:shadow-xl transition duration-300 ease-in-out"
                         />
                     </div>
