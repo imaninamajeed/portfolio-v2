@@ -26,7 +26,7 @@ const AboutPage = () => {
                                 <FaRegUserCircle className="mr-3" /> About Me
                             </h2>
                             <p className="text-gray-700 text-base leading-relaxed font-medium">
-                                I'm Imanina, a front-end engineer passionate about creating dynamic web experiences.
+                                My name is Imanina, a front-end engineer passionate about creating dynamic web experiences.
                             </p>
                         </section>
 
@@ -77,7 +77,7 @@ const AboutPage = () => {
                         </div>
 
                         {/* Experience 2 */}
-                        <div className='mb-8'>
+                        <div className="mb-8">
                             <div className="mb-2">
                                 <p className="font-semibold text-xl text-gray-800">
                                     Research Intern
@@ -111,7 +111,7 @@ const AboutPage = () => {
                             </div>
                         </div>
 
-                        <div className='mb-8'>
+                        <div className="mb-8">
                             <div className="mb-2">
                                 <p className="font-semibold text-xl text-gray-800">
                                     Diploma in Computer Science
@@ -125,7 +125,7 @@ const AboutPage = () => {
                             </div>
                         </div>
 
-                        <div className='mb-8'>
+                        <div className="mb-8">
                             <div className="mb-2">
                                 <p className="font-semibold text-xl text-gray-800">
                                     Certifications
