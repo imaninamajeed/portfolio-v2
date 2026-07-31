@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Imanina Portfolio — Scalable Multi-Project Version
 
-## Getting Started
+A static, shadcn/ui-inspired portfolio designed to support a growing number of products and projects.
 
-First, run the development server:
+## Structure
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```text
+imanina-portfolio-scalable/
+├── index.html                # Homepage with featured projects
+├── projects.html             # Searchable and filterable archive
+├── project.html              # Reusable project-detail template
+├── styles.css                # Shared design system and responsive layout
+├── script.js                 # Shared theme, navigation and card helpers
+├── home.js                   # Featured-project rendering
+├── projects.js               # Archive search, filters, sorting and load more
+├── project-detail.js         # Dynamic case-study rendering
+├── data/
+│   └── projects.js           # The only file to edit when adding projects
+└── assets/
+    └── passport.png
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Add a project
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Open `data/projects.js`, duplicate an existing object, and update:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `slug` — unique URL-safe name
+- `title`
+- `category`
+- `year`
+- `status`
+- `visibility`
+- `featured`
+- `visual`
+- project descriptions and case-study fields
+- `technologies`
+- `links.demo` and/or `links.repository`
 
-## Learn More
+The homepage automatically displays up to six projects where `featured: true`.
 
-To learn more about Next.js, take a look at the following resources:
+The archive automatically generates:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Category options
+- Status options
+- Year options
+- Search results
+- Sort order
+- Load-more behaviour
+- Result count
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Each project uses the same detail page:
 
-## Deploy on Vercel
+```text
+project.html?slug=cmms-plus
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Visual options
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The included CSS supports these abstract preview styles:
+
+- `dashboard`
+- `road`
+- `rail`
+- `train`
+- `vision`
+- `builder`
+- `analytics`
+- `traffic`
+- `portfolio`
+- `table`
+- `weather`
+- `code`
+
+You can later replace the generated preview with an image field and render real screenshots.
+
+## Run locally
+
+```bash
+python -m http.server 8080
+```
+
+Open `http://localhost:8080`.
+
+## Deploy to Vercel or Netlify
+
+This is a static site with no build step. Publish the project root.
+
+## Recommended next content step
+
+For strong public case studies, add real screenshots and measurable outcomes only where disclosure is permitted. Keep internal work marked as `Internal` and avoid exposing credentials, customer data, private URLs, or confidential metrics.
