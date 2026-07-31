@@ -101,9 +101,8 @@ export default function HomePage() {
               <span className="text-muted-foreground">complex operations</span>
             </h1>
             <p className="mt-6 max-w-170 text-base text-muted-foreground sm:text-lg">
-              I&rsquo;m Imanina, a product engineer focused on practical interfaces,
-              operational dashboards, and design systems that make complicated information
-              easier to understand and act on.
+              I&rsquo;m Imanina, a product engineer who builds practical interfaces and
+              dashboards that turn complex information into clear action.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Button asChild size="lg">
