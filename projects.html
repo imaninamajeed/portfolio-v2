@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Browse Imanina Majeed's product, dashboard, analytics, transport, computer-vision, and web projects." />
+  <title>Projects — Imanina Majeed</title>
+  <link rel="stylesheet" href="styles.css" />
+  
+<script>
+  (() => {
+    const savedTheme = localStorage.getItem("theme");
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    document.documentElement.dataset.theme = savedTheme || (prefersDark ? "dark" : "light");
+  })();
+</script>
+
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a class="brand" href="index.html" aria-label="Imanina home">
+      <span class="brand-mark">IM</span>
+      <span class="brand-text">Imanina</span>
+    </a>
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <a href="index.html">Home</a>
+      <a href="projects.html">Projects</a>
+      <a href="index.html#about">About</a>
+      <a href="index.html#experience">Experience</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-button" id="theme-toggle" type="button" aria-label="Switch colour theme" title="Switch colour theme">
+        <svg class="sun-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.66 6.34l1.41-1.41"></path></svg>
+        <svg class="moon-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8Z"></path></svg>
+      </button>
+      <a class="button button-sm button-primary desktop-cta" href="index.html#contact">Let’s talk</a>
+      <button class="icon-button mobile-menu-button" id="mobile-menu-button" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation">
+        <svg class="menu-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+        <svg class="close-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"></path></svg>
+      </button>
+    </div>
+  </div>
+  <nav class="mobile-menu container" id="mobile-menu" aria-label="Mobile navigation">
+    <a href="index.html">Home</a>
+    <a href="projects.html">Projects</a>
+    <a href="index.html#about">About</a>
+    <a href="index.html#experience">Experience</a>
+    <a href="index.html#contact">Contact</a>
+  </nav>
+</header>
+
+  <main id="main-content">
+    <section class="page-hero section">
+      <div class="container page-hero-grid">
+        <div>
+          <p class="eyebrow">Project archive</p>
+          <h1>Products, prototypes, and experiments.</h1>
+        </div>
+        <p>Search the complete archive by project name, category, status, year, or technology. Add new work by editing one JavaScript data file.</p>
+      </div>
+    </section>
+
+    <section class="archive-section section-border">
+      <div class="container">
+        <div class="filter-panel card" aria-label="Project filters">
+          <div class="search-field">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg>
+            <input id="project-search" type="search" placeholder="Search projects or technologies…" autocomplete="off" />
+          </div>
+          <div class="filter-row">
+            <label><span>Category</span><select id="category-filter"><option value="">All categories</option></select></label>
+            <label><span>Status</span><select id="status-filter"><option value="">All statuses</option></select></label>
+            <label><span>Year</span><select id="year-filter"><option value="">All years</option></select></label>
+            <label><span>Sort</span><select id="sort-filter"><option value="latest">Latest first</option><option value="oldest">Oldest first</option><option value="title">Title A–Z</option></select></label>
+          </div>
+          <div class="filter-footer">
+            <p id="project-count" aria-live="polite"></p>
+            <button class="button button-ghost button-sm" id="clear-filters" type="button">Clear filters</button>
+          </div>
+        </div>
+
+        <div class="project-collection archive-collection" id="project-results" aria-live="polite"></div>
+        <div class="load-more-wrap">
+          <button class="button button-outline" id="load-more" type="button">Load more projects</button>
+        </div>
+        <div class="empty-state card" id="empty-state" hidden>
+          <p class="eyebrow">No matches</p>
+          <h2>No projects match these filters.</h2>
+          <p>Try a broader keyword or clear the selected filters.</p>
+          <button class="button button-outline" id="empty-clear" type="button">Clear filters</button>
+        </div>
+      </div>
+    </section>
+  </main>
+  
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>© <span id="current-year"></span> Imanina Majeed.</p>
+    <div class="footer-links">
+      <a href="https://linkedin.com/in/imaninamajeed" target="_blank" rel="noreferrer">LinkedIn</a>
+      <a href="https://github.com/imaninamajeed" target="_blank" rel="noreferrer">GitHub</a>
+      <a href="https://github.com/imaninamajeed/portfolio-v2/blob/main/public/resume.pdf" target="_blank" rel="noreferrer">Resume</a>
+    </div>
+  </div>
+</footer>
+
+  <script src="data/projects.js"></script>
+  <script src="script.js"></script>
+  <script src="projects.js"></script>
+</body>
+</html>
