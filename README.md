@@ -29,13 +29,17 @@ src/
 │   ├── site-header.tsx          # Nav, theme toggle, mobile menu (Sheet)
 │   ├── site-footer.tsx
 │   ├── project-card.tsx
-│   ├── project-visual.tsx       # Abstract per-category preview art
+│   ├── project-visual.tsx       # Real screenshot if project.image is set, else abstract per-category art
 │   └── projects-archive.tsx     # Search/filter/sort/pagination (client)
 └── lib/
     └── projects.ts              # The only file to edit when adding a project
 public/
-├── passport.png
-└── resume.pdf
+├── images/
+│   ├── profile.png
+│   └── projects/
+│       └── kkr-nitmc-dashboard.png   # Named after the project's `slug`
+└── documents/
+    └── resume.pdf
 archive/                         # Superseded predecessors, kept for reference
 ├── legacy-static-site/          # The vanilla HTML/CSS/JS site this replaced
 └── portfolio-v2-legacy-app/     # An earlier, unfinished Next.js scaffold
@@ -52,6 +56,10 @@ nothing else needs to change.
 `visual` accepts one of: `dashboard`, `road`, `rail`, `train`, `vision`,
 `builder`, `analytics`, `traffic`, `portfolio`, `table`, `weather`, `code`
 (see `src/components/project-visual.module.css`).
+
+To use a real screenshot instead of the abstract art, drop it in
+`public/images/projects/<slug>.png` and set `image: "/images/projects/<slug>.png"`
+on the project. Omit `image` to keep the generated `visual` art.
 
 ## Development
 

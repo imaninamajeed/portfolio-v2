@@ -84,7 +84,7 @@ const STACK = [
 ];
 
 export default function HomePage() {
-  const featured = getFeaturedProjects();
+  const featured = getFeaturedProjects(7);
 
   return (
     <>
@@ -113,7 +113,7 @@ export default function HomePage() {
               </Button>
               <Button asChild variant="outline" size="lg">
                 <Link
-                  href="https://github.com/imaninamajeed/portfolio-v2/blob/main/public/resume.pdf"
+                  href="https://github.com/imaninamajeed/portfolio-v2/blob/main/public/documents/resume.pdf"
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -143,7 +143,7 @@ export default function HomePage() {
           >
             <div className="flex items-center gap-3">
               <Image
-                src="/passport.png"
+                src="/images/profile.png"
                 alt="Portrait of Imanina Majeed"
                 width={48}
                 height={48}

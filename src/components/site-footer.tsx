@@ -24,7 +24,7 @@ export function SiteFooter() {
             GitHub
           </Link>
           <Link
-            href="/resume.pdf"
+            href="/documents/resume.pdf"
             target="_blank"
             rel="noreferrer"
             className="inline-flex items-center gap-1.5 hover:text-foreground"
