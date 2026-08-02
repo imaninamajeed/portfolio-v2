@@ -31,7 +31,7 @@ export function ProjectVisual({
           alt={`${project.title} screenshot`}
           fill
           sizes={large ? "(min-width: 1024px) 720px, 100vw" : "(min-width: 640px) 33vw, 100vw"}
-          className="object-contain"
+          className="object-cover object-top-left"
         />
       ) : (
         <>
