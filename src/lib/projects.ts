@@ -244,27 +244,36 @@ export const PROJECTS: Project[] = [
     visual: "dashboard",
     image: "/images/projects/kkr-nitmc-dashboard.png",
     summary:
-      "A 15-page traffic and transit operations dashboard for Malaysia's road network, with dual Leaflet/Google Maps visualisation over a simulated national dataset.",
+      "A 15-page traffic and transit operations dashboard for Malaysia's road network, rebuilt in Next.js with shadcn/ui, Recharts, and live Google Maps.",
     description:
-      "KKR (NITMC POC) is a static, vanilla-JS dashboard suite covering executive reporting, live operations, traffic data collection, smart traffic lights, bus and journey planning, city planning, social media monitoring, predictive analytics, sustainability, road safety, bottleneck detection, and data quality — all behind one sidebar shell, modelled on Malaysian traffic zones (Klang Valley, Ampang, Bangsar, and others) using a simulated dataset.",
+      "NITMC Dashboard is a Next.js (App Router) rebuild of an earlier static prototype, covering executive reporting, live operations, traffic data collection, smart traffic lights, bus and journey planning, city planning, social media monitoring, predictive analytics, sustainability, road safety, bottleneck detection, and data quality — all behind one shared dashboard shell, modelled on Malaysian traffic zones (Klang Valley, Ampang, Bangsar, and others) using a typed mock dataset.",
     role: "Solo frontend development, dashboard architecture, and deployment",
     duration: "Personal project",
     context: "Traffic and transit operations monitoring",
     problem:
       "Transit and traffic stakeholders needed a single, navigable interface to move between operational, planning, and analytics views instead of disconnected tools and reports.",
     approach:
-      "Built a static multi-page Vite and vanilla-JavaScript application with a shared sidebar navigation shell and one page per dashboard domain (operations, traffic data collection, smart traffic lights, bus, journey planning, city planning, social, predictive analytics, sustainability, road safety, bottleneck, data quality, admin). Maps run on Leaflet with a CartoDB dark basemap by default, with an optional Google Maps roads/traffic layer when an API key is configured. Zone and sensor data is a simulated Malaysia-wide dataset used to drive every dashboard consistently. Containerized with Docker (Node 20-alpine) for consistent deployment.",
+      "Rebuilt an earlier static Vite/vanilla-JS prototype as a Next.js App Router application, with one route per dashboard domain (operation, traffic data collector, smart traffic light, bus, journey planner, city planner, social, map service, predictive, sustainability, road safety, bottleneck, data quality, admin) sharing a common sidebar layout and presentation-mode provider. Charts run on Recharts and the UI on shadcn/ui and Tailwind CSS; live maps use @vis.gl/react-google-maps, falling back to a placeholder card when no API key is configured. A command palette (cmdk) and toast notifications round out the shell. Zone and sensor data is a typed, Malaysia-wide mock dataset shared across every dashboard. The original Vite implementation is preserved in-repo under `archive/` for reference.",
     outcome:
-      "A cohesive, deployable dashboard suite that demonstrates how disparate transit and traffic data sources can be unified into one navigable operational interface, ready to swap simulated data for a live feed.",
+      "A cohesive, deployed dashboard suite (Vercel) that demonstrates how disparate transit and traffic data sources can be unified into one navigable operational interface, ready to swap mock data for a live feed.",
     highlights: [
       "15 dashboard modules — executive, operation, traffic data collector, smart traffic light, bus, journey planner, city planner, and more",
-      "Dual mapping: Leaflet with a CartoDB dark basemap, plus an optional Google Maps roads/traffic layer",
-      "Simulated Malaysia-wide traffic and transit dataset (Klang Valley, Ampang, Bangsar, and other zones)",
-      "Dockerized deployment (Node 20-alpine) with build/up/down/health wrapper scripts",
+      "Rebuilt from an earlier static Vite/vanilla-JS prototype onto Next.js App Router, shadcn/ui, and Recharts",
+      "Live Google Maps traffic layer (@vis.gl/react-google-maps) with a graceful placeholder when no API key is set",
+      "Command palette (⌘K) navigation and typed, Malaysia-wide mock dataset shared across every dashboard",
     ],
-    technologies: ["JavaScript", "Vite", "Leaflet.js", "Google Maps API", "Docker", "HTML/CSS"],
+    technologies: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Tailwind CSS",
+      "shadcn/ui",
+      "Recharts",
+      "Google Maps API",
+    ],
     links: {
-      repository: "https://github.com/imaninamajeed/kkr",
+      demo: "https://kkr-nextjs.vercel.app/",
+      repository: "https://github.com/imaninamajeed/kkr-nextjs",
     },
   },
   {
