@@ -1,220 +1,349 @@
 .visual {
   position: relative;
   overflow: hidden;
-  background: color-mix(in oklch, var(--muted), transparent 48%);
+  background: color-mix(in oklch, var(--muted), transparent 40%);
 }
 
-.grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(color-mix(in oklch, var(--border), transparent 55%) 1px, transparent 1px),
-    linear-gradient(90deg, color-mix(in oklch, var(--border), transparent 55%) 1px, transparent 1px);
-  background-size: 26px 26px;
-  mask-image: linear-gradient(to bottom, black, transparent);
-}
-
-.panel {
-  position: absolute;
-  border: 1px solid var(--border);
-  border-radius: 9px;
-  background: color-mix(in oklch, var(--background), transparent 8%);
-  box-shadow: var(--shadow-lg, 0 12px 30px rgb(0 0 0 / 0.12));
-  padding: 0.75rem;
-}
-
-.panelA {
-  composes: panel;
-  left: 10%;
-  bottom: 12%;
-  width: 48%;
-  height: 58%;
-}
-
-.panelB {
-  composes: panel;
-  top: 14%;
-  right: 9%;
-  width: 34%;
-  height: 35%;
-}
-
-.bar {
-  display: block;
-  border-radius: 999px;
-  background: var(--border);
-}
-.barLabel {
-  composes: bar;
-  width: 44%;
-  height: 6px;
-}
-.barTitle {
-  composes: bar;
-  width: 72%;
-  height: 12px;
-  margin-top: 0.55rem;
-  background: color-mix(in oklch, var(--foreground), transparent 30%);
-}
-.barLine {
-  composes: bar;
-  height: 8px;
-  margin-top: 0.8rem;
-}
-.barLine:nth-of-type(1) {
-  width: 88%;
-}
-.barLine:nth-of-type(2) {
-  width: 65%;
-}
-.barLine:nth-of-type(3) {
-  width: 76%;
-}
-
-.panelCaption {
-  display: block;
-  margin-top: 0.55rem;
-  color: var(--muted-foreground);
-  font-size: 0.62rem;
-}
-
-.line {
-  position: absolute;
-  height: 3px;
-  border-radius: 999px;
-  background: color-mix(in oklch, var(--foreground), transparent 35%);
-  transform: rotate(-12deg);
-}
-
-.dot {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  border: 3px solid var(--foreground);
-  border-radius: 50%;
-  background: var(--background);
-}
-.dotA {
-  composes: dot;
-  left: 17%;
-  top: 28%;
-}
-.dotB {
-  composes: dot;
-  left: 48%;
-  top: 48%;
-}
-.dotC {
-  composes: dot;
-  right: 18%;
-  bottom: 20%;
-}
-
-/* dashboard, table, code variants hide the connecting line */
-.dashboard .line,
-.table .line,
-.code .line {
-  display: none;
-}
-
-.road .line {
-  left: 5%;
-  bottom: 37%;
-  width: 90%;
-  height: 7px;
-  transform: rotate(-8deg);
-}
-.road .panelA {
-  width: 34%;
-  height: 45%;
-}
-.road .panelB {
-  width: 42%;
-  height: 42%;
-}
-
-.rail .line,
-.train .line {
-  left: 9%;
-  top: 53%;
-  width: 82%;
-  transform: none;
-}
-.rail .panelA,
-.train .panelA {
-  left: auto;
-  right: 9%;
-  bottom: 12%;
-  width: 35%;
-  height: 40%;
-}
-
-.vision .panelA,
-.builder .panelA {
-  left: 13%;
-  bottom: 12%;
-  width: 56%;
-  height: 67%;
-  background: color-mix(in oklch, var(--foreground), transparent 93%);
-}
-.vision .panelA::after,
-.builder .panelA::after {
-  content: "";
-  position: absolute;
-  inset: 18%;
-  border: 2px solid color-mix(in oklch, var(--foreground), transparent 35%);
-  border-radius: 6px;
-}
-
-.weather .panelA {
-  width: 44%;
-  height: 56%;
-  border-radius: 50% 50% 9px 9px;
-}
-.weather .line {
-  display: none;
-}
-
-.analytics .panelA,
-.traffic .panelA {
+.mock {
   display: flex;
-  align-items: flex-end;
+  height: 100%;
+  min-height: 100%;
+  flex-direction: column;
+  background: color-mix(in oklch, var(--background), transparent 4%);
+}
+
+/* Browser-style chrome bar */
+.chrome {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in oklch, var(--muted), transparent 35%);
+}
+
+.chromeDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--foreground), transparent 70%);
+}
+
+.address {
+  flex: 1;
+  max-width: 55%;
+  height: 9px;
+  margin-left: 8px;
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--foreground), transparent 88%);
+}
+
+.liveDot {
+  width: 6px;
+  height: 6px;
+  margin-left: auto;
+  border-radius: 999px;
+  background: var(--success);
+}
+
+.body {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+}
+
+/* Sidebar rail */
+.sidebar {
+  display: flex;
+  flex-shrink: 0;
+  width: 15%;
+  min-width: 30px;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-right: 1px solid var(--border);
+  background: color-mix(in oklch, var(--muted), transparent 55%);
+}
+
+.sidebarBrand {
+  width: 14px;
+  height: 14px;
+  border-radius: 5px;
+  background: color-mix(in oklch, var(--foreground), transparent 25%);
+}
+
+.sidebarIcon {
+  width: 10px;
+  height: 10px;
+  border-radius: 4px;
+  background: color-mix(in oklch, var(--foreground), transparent 82%);
+}
+
+.sidebarIconActive {
+  background: color-mix(in oklch, var(--foreground), transparent 45%);
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 14px;
+}
+
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 }
-.analytics .panelA .barLine,
-.traffic .panelA .barLine {
-  width: 22%;
-  height: 40%;
-  margin-top: auto;
-  border-radius: 4px 4px 0 0;
-  background: color-mix(in oklch, var(--foreground), transparent 32%);
-}
-.analytics .panelA .barLine:nth-of-type(2),
-.traffic .panelA .barLine:nth-of-type(2) {
-  height: 76%;
-}
-.analytics .panelA .barLine:nth-of-type(3),
-.traffic .panelA .barLine:nth-of-type(3) {
-  height: 58%;
+
+.statCard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: color-mix(in oklch, var(--background), transparent 6%);
 }
 
-.portfolio .panelA {
+.statLabel {
+  display: block;
+  width: 55%;
+  height: 4px;
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--foreground), transparent 82%);
+}
+
+.statValue {
+  display: block;
+  width: 70%;
+  height: 8px;
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--foreground), transparent 35%);
+}
+
+.mainPanel {
+  position: relative;
+  overflow: hidden;
+  height: calc(100% - 58px);
+  margin-top: 10px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: color-mix(in oklch, var(--background), transparent 6%);
+}
+
+/* Default: bar chart + a few table rows */
+.chartBars {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 46%;
+}
+.chartBars span {
+  flex: 1;
+  border-radius: 3px 3px 0 0;
+  background: color-mix(in oklch, var(--foreground), transparent 55%);
+}
+.chartBars span:nth-child(1) { height: 55%; }
+.chartBars span:nth-child(2) { height: 82%; }
+.chartBars span:nth-child(3) { height: 40%; }
+.chartBars span:nth-child(4) { height: 68%; }
+.chartBars span:nth-child(5) { height: 92%; }
+.chartBars span:nth-child(6) { height: 60%; }
+
+.tableRows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 14px;
+}
+.tableRows span {
+  display: block;
+  height: 7px;
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--foreground), transparent 84%);
+}
+.tableRows span:nth-child(1) { width: 92%; }
+.tableRows span:nth-child(2) { width: 78%; }
+.tableRows span:nth-child(3) { width: 85%; }
+
+/* table: emphasise rows, hide chart */
+.table .chartBars { display: none; }
+.table .tableRows { margin-top: 0; gap: 11px; }
+.table .tableRows span { height: 9px; }
+
+/* code: monospaced line stack instead of chart/rows */
+.code .chartBars { display: none; }
+.code .tableRows { display: none; }
+.code .mainPanel::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    color-mix(in oklch, var(--foreground), transparent 82%) 0,
+    color-mix(in oklch, var(--foreground), transparent 82%) 7px,
+    transparent 7px,
+    transparent 20px
+  );
+  background-size: 60% 20px, 40% 20px, 70% 20px;
+  background-repeat: repeat-y;
+}
+
+/* road / traffic: map grid with a route line and location pins */
+.road .chartBars,
+.traffic .chartBars { display: none; }
+.road .tableRows,
+.traffic .tableRows { display: none; }
+.road .mainPanel,
+.traffic .mainPanel {
+  background-image: linear-gradient(
+      color-mix(in oklch, var(--border), transparent 50%) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, color-mix(in oklch, var(--border), transparent 50%) 1px, transparent 1px);
+  background-size: 18px 18px;
+}
+.road .mainPanel::before,
+.traffic .mainPanel::before {
+  content: "";
+  position: absolute;
   left: 8%;
-  bottom: 10%;
-  width: 58%;
-  height: 70%;
+  top: 60%;
+  width: 84%;
+  height: 4px;
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--foreground), transparent 35%);
+  transform: rotate(-6deg);
 }
-.portfolio .panelB {
-  right: 8%;
-  top: 12%;
-  width: 29%;
-  height: 32%;
+.road .mainPanel::after,
+.traffic .mainPanel::after {
+  content: "";
+  position: absolute;
+  left: 30%;
+  top: 32%;
+  width: 10px;
+  height: 10px;
+  border: 2px solid var(--foreground);
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(45deg);
+  background: var(--background);
 }
 
-.code .panelA {
-  width: 72%;
-  height: 67%;
+/* rail / train: horizontal track with station stops */
+.rail .chartBars,
+.train .chartBars { display: none; }
+.rail .tableRows,
+.train .tableRows { display: none; }
+.rail .mainPanel::before,
+.train .mainPanel::before {
+  content: "";
+  position: absolute;
+  left: 8%;
+  top: 50%;
+  width: 84%;
+  height: 3px;
+  background: color-mix(in oklch, var(--foreground), transparent 45%);
 }
-.code .panelA .barLine {
-  height: 5px;
+.rail .mainPanel::after,
+.train .mainPanel::after {
+  content: "";
+  position: absolute;
+  left: 8%;
+  top: calc(50% - 5px);
+  width: 84%;
+  height: 12px;
+  background-image: radial-gradient(circle, var(--foreground) 3px, transparent 3.5px);
+  background-size: 21% 12px;
+  background-repeat: repeat-x;
+}
+
+/* vision / builder: detection frame over an "image" */
+.vision .chartBars,
+.builder .chartBars { display: none; }
+.vision .tableRows,
+.builder .tableRows { display: none; }
+.vision .mainPanel,
+.builder .mainPanel {
+  background: color-mix(in oklch, var(--foreground), transparent 92%);
+}
+.vision .mainPanel::before,
+.builder .mainPanel::before {
+  content: "";
+  position: absolute;
+  inset: 20% 24%;
+  border: 2px solid color-mix(in oklch, var(--foreground), transparent 25%);
+  border-radius: 6px;
+}
+.vision .mainPanel::after,
+.builder .mainPanel::after {
+  content: "";
+  position: absolute;
+  left: 24%;
+  bottom: 16%;
+  width: 34%;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--success);
+}
+
+/* weather: circular gauge */
+.weather .chartBars,
+.weather .tableRows { display: none; }
+.weather .mainPanel::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 42%;
+  width: 34%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 6px solid color-mix(in oklch, var(--foreground), transparent 82%);
+  border-top-color: color-mix(in oklch, var(--foreground), transparent 30%);
+  border-right-color: color-mix(in oklch, var(--foreground), transparent 30%);
+}
+.weather .mainPanel::after {
+  content: "";
+  position: absolute;
+  left: 12%;
+  bottom: 14%;
+  width: 76%;
+  height: 7px;
+  border-radius: 999px;
+  background: color-mix(in oklch, var(--foreground), transparent 84%);
+}
+
+/* analytics: bars + a trend line overlay */
+.analytics .mainPanel::after {
+  content: "";
+  position: absolute;
+  left: 10%;
+  top: 22%;
+  width: 80%;
+  height: 34%;
+  background: linear-gradient(
+    18deg,
+    transparent 46%,
+    color-mix(in oklch, var(--foreground), transparent 55%) 48%,
+    transparent 50%
+  );
+}
+
+/* portfolio: card grid instead of chart */
+.portfolio .chartBars,
+.portfolio .tableRows { display: none; }
+.portfolio .mainPanel {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.portfolio .mainPanel::before,
+.portfolio .mainPanel::after {
+  content: "";
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: color-mix(in oklch, var(--foreground), transparent 90%);
 }

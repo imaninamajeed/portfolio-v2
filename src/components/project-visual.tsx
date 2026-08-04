@@ -34,25 +34,55 @@ export function ProjectVisual({
           className="object-cover object-top-left"
         />
       ) : (
-        <>
-          <div className={styles.grid} />
-          <div className={styles.panelA}>
-            <span className={styles.barLabel} />
-            <strong className={styles.barTitle} />
-            <span className={styles.barLine} />
-            <span className={styles.barLine} />
-            <span className={styles.barLine} />
+        <div className={styles.mock}>
+          <div className={styles.chrome}>
+            <span className={styles.chromeDot} />
+            <span className={styles.chromeDot} />
+            <span className={styles.chromeDot} />
+            <span className={styles.address} />
+            <span className={styles.liveDot} aria-hidden="true" />
           </div>
-          <div className={styles.panelB}>
-            <span className={styles.barLabel} />
-            <strong className={styles.barTitle} />
-            <em className={styles.panelCaption}>{project.category}</em>
+          <div className={styles.body}>
+            <div className={styles.sidebar}>
+              <span className={styles.sidebarBrand} />
+              <span className={styles.sidebarIcon} />
+              <span className={styles.sidebarIcon} />
+              <span className={cn(styles.sidebarIcon, styles.sidebarIconActive)} />
+              <span className={styles.sidebarIcon} />
+            </div>
+            <div className={styles.content}>
+              <div className={styles.statsRow}>
+                <div className={styles.statCard}>
+                  <span className={styles.statLabel} />
+                  <strong className={styles.statValue} />
+                </div>
+                <div className={styles.statCard}>
+                  <span className={styles.statLabel} />
+                  <strong className={styles.statValue} />
+                </div>
+                <div className={styles.statCard}>
+                  <span className={styles.statLabel} />
+                  <strong className={styles.statValue} />
+                </div>
+              </div>
+              <div className={styles.mainPanel}>
+                <div className={styles.chartBars}>
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                  <span />
+                </div>
+                <div className={styles.tableRows}>
+                  <span />
+                  <span />
+                  <span />
+                </div>
+              </div>
+            </div>
           </div>
-          <div className={styles.line} />
-          <div className={styles.dotA} />
-          <div className={styles.dotB} />
-          <div className={styles.dotC} />
-        </>
+        </div>
       )}
     </div>
   );

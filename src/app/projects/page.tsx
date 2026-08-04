@@ -1,38 +1,40 @@
-import { Suspense } from "react";
 import type { Metadata } from "next";
 
 import { Eyebrow } from "@/components/eyebrow";
-import { ProjectsArchive } from "@/components/projects-archive";
+import { ProjectCard } from "@/components/project-card";
+import { PROJECTS, sortProjects } from "@/lib/projects";
 
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "Browse Imanina Majeed's product, dashboard, analytics, transport, computer-vision, and web projects.",
+    "Browse Imanina's product, dashboard, analytics, transport, computer-vision, and web projects.",
 };
 
 export default function ProjectsPage() {
+  const projects = sortProjects(PROJECTS, "latest");
+
   return (
     <>
-      <section className="pb-16">
-        <div className="mx-auto grid w-full max-w-290 gap-8 px-4 pt-16 sm:grid-cols-[1fr_0.55fr] sm:items-end">
-          <div>
-            <Eyebrow className="mb-2.5">Project archive</Eyebrow>
-            <h1 className="max-w-212.5 text-5xl font-semibold tracking-[-0.045em] sm:text-6xl lg:text-[5.6rem]">
-              Products, prototypes, and experiments.
-            </h1>
-          </div>
-          <p className="text-muted-foreground">
-            Search the complete archive by project name, category, status, year, or
-            technology.
+      <section className="pb-12">
+        <div className="mx-auto w-full max-w-290 px-4 pt-16">
+          <Eyebrow className="mb-2.5">Projects</Eyebrow>
+          <h1 className="max-w-165 text-5xl font-semibold tracking-[-0.045em] sm:text-6xl">
+            Products, Prototypes, and Experiments
+          </h1>
+          <p className="mt-4 max-w-135 text-muted-foreground">
+            {projects.length} projects spanning operational dashboards, analytics,
+            computer vision, and public web apps. Each links to a short case study.
           </p>
         </div>
       </section>
 
       <section className="border-t border-border pb-28">
         <div className="mx-auto w-full max-w-290 px-4 pt-8">
-          <Suspense>
-            <ProjectsArchive />
-          </Suspense>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {projects.map((project) => (
+              <ProjectCard key={project.slug} project={project} />
+            ))}
+          </div>
         </div>
       </section>
     </>

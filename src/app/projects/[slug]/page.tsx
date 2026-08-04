@@ -50,19 +50,19 @@ const TEXT_SECTIONS: {
   {
     id: "problem",
     eyebrow: "Problem",
-    heading: "What needed to be clearer?",
+    heading: "What Needed to Be Clearer?",
     field: "problem",
   },
   {
     id: "approach",
     eyebrow: "Approach",
-    heading: "How the product was structured.",
+    heading: "How the Product Was Structured",
     field: "approach",
   },
   {
     id: "outcome",
     eyebrow: "Outcome",
-    heading: "What the work established.",
+    heading: "What the Work Established",
     field: "outcome",
   },
 ];
@@ -101,7 +101,7 @@ export default async function ProjectPage({ params }: Props) {
                 {demo && (
                   <Button asChild>
                     <Link href={demo} target="_blank" rel="noreferrer">
-                      Open live demo
+                      Open Live Demo
                       <ExternalLink className="size-4" aria-hidden="true" />
                     </Link>
                   </Button>
@@ -109,13 +109,13 @@ export default async function ProjectPage({ params }: Props) {
                 {repository && (
                   <Button asChild variant="outline">
                     <Link href={repository} target="_blank" rel="noreferrer">
-                      View repository
+                      View Repository
                       <ExternalLink className="size-4" aria-hidden="true" />
                     </Link>
                   </Button>
                 )}
                 <Button asChild variant="outline">
-                  <Link href="/projects">Back to archive</Link>
+                  <Link href="/projects">Back to Archive</Link>
                 </Button>
               </div>
             </div>
@@ -136,7 +136,7 @@ export default async function ProjectPage({ params }: Props) {
       <section className="py-24 sm:py-28">
         <div className="mx-auto grid w-full max-w-290 justify-center gap-8 px-4 sm:grid-cols-[190px_minmax(0,720px)] sm:gap-20">
           <aside className="h-max sm:sticky sm:top-27.5">
-            <Eyebrow className="mb-2.5">Case study</Eyebrow>
+            <Eyebrow className="mb-2.5">Case Study</Eyebrow>
             <nav className="flex flex-wrap gap-4 sm:grid sm:gap-2.5">
               {NAV_SECTIONS.map((item) => (
                 <a
@@ -163,7 +163,7 @@ export default async function ProjectPage({ params }: Props) {
             <section id="highlights" className="scroll-mt-27.5">
               <Eyebrow>Highlights</Eyebrow>
               <h2 className="mt-2 text-3xl font-semibold sm:text-4xl">
-                Key parts of the project.
+                Key Parts of the Project
               </h2>
               <ul className="mt-5 grid gap-2.5">
                 {project.highlights.map((item) => (
@@ -179,7 +179,7 @@ export default async function ProjectPage({ params }: Props) {
             </section>
             <section>
               <Eyebrow>Technology</Eyebrow>
-              <h2 className="mt-2 text-3xl font-semibold sm:text-4xl">Tools and platforms.</h2>
+              <h2 className="mt-2 text-3xl font-semibold sm:text-4xl">Tools and Platforms</h2>
               <div className="mt-5 flex flex-wrap gap-2">
                 {project.technologies.map((tech) => (
                   <span
@@ -199,16 +199,16 @@ export default async function ProjectPage({ params }: Props) {
         <div className="mx-auto w-full max-w-290 px-4">
           <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
             <div>
-              <Eyebrow className="mb-2.5">Related work</Eyebrow>
+              <Eyebrow className="mb-2.5">Related Work</Eyebrow>
               <h2 className="text-3xl font-semibold sm:text-4xl">
-                More from {project.category}.
+                More from {project.category}
               </h2>
             </div>
             <Link
               href={`/projects?category=${encodeURIComponent(project.category)}`}
               className="inline-flex items-center gap-1.5 text-[0.82rem] font-semibold hover:underline hover:underline-offset-4"
             >
-              Browse archive
+              Browse Archive
               <ArrowRight className="size-3.5" aria-hidden="true" />
             </Link>
           </div>
@@ -226,7 +226,7 @@ export default async function ProjectPage({ params }: Props) {
           className="group mx-auto flex min-h-55 w-full max-w-290 items-center justify-between gap-8 px-4"
         >
           <div>
-            <Eyebrow className="mb-2.5">Next project</Eyebrow>
+            <Eyebrow className="mb-2.5">Next Project</Eyebrow>
             <h2 className="text-4xl font-semibold sm:text-5xl">{next.title}</h2>
           </div>
           <ArrowRight className="size-9 shrink-0 transition-transform group-hover:translate-x-1.5" aria-hidden="true" />

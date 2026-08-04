@@ -22,6 +22,9 @@ export function ProjectCard({ project }: { project: Project }) {
           <p className="mt-2 text-[0.86rem] text-muted-foreground">
             {project.summary}
           </p>
+          <p className="mt-2.5 text-[0.75rem] text-muted-foreground">
+            <span className="font-semibold text-foreground/80">Role:</span> {project.role}
+          </p>
           <div className="mt-4 flex flex-wrap gap-1.5">
             {project.technologies.slice(0, 3).map((tech) => (
               <span
@@ -33,7 +36,7 @@ export function ProjectCard({ project }: { project: Project }) {
             ))}
           </div>
           <div className="mt-auto flex items-center justify-between gap-4 pt-5 text-[0.78rem] font-semibold">
-            View case study
+            View Case Study
             <ArrowRight className="size-3.75 transition-transform group-hover/card:translate-x-1" aria-hidden="true" />
           </div>
         </div>

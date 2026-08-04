@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s — Imanina Majeed",
   },
   description:
-    "Imanina Majeed — Product Engineer building operational dashboards, analytics interfaces, and scalable product systems.",
+    "Imanina — Product Engineer building operational dashboards, analytics interfaces, and scalable product systems.",
 };
 
 export default function RootLayout({
@@ -43,7 +43,7 @@ export default function RootLayout({
             href="#main-content"
             className="fixed top-3 left-3 z-[999] -translate-y-[150%] rounded-lg bg-primary px-3.5 py-2.5 text-sm font-semibold text-primary-foreground transition-transform focus:translate-y-0"
           >
-            Skip to content
+            Skip to Content
           </a>
           <SiteHeader />
           <main id="main-content" className="flex-1">
