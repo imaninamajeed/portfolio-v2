@@ -465,19 +465,23 @@ export const PROJECTS: Project[] = [
 
 export type SortOrder = "latest" | "oldest" | "title";
 
-export function getFeaturedProjects(limit = 6): Project[] {
-  const pinned = ["kkr-nitmc-dashboard"];
+const PINNED_PROJECT_SLUGS = ["kkr-nitmc-dashboard"];
 
+function comparePinnedProjects(a: Project, b: Project): number | null {
+  const aPin = PINNED_PROJECT_SLUGS.indexOf(a.slug);
+  const bPin = PINNED_PROJECT_SLUGS.indexOf(b.slug);
+  if (aPin === -1 && bPin === -1) return null;
+  if (aPin === -1) return 1;
+  if (bPin === -1) return -1;
+  return aPin - bPin;
+}
+
+export function getFeaturedProjects(limit = 6): Project[] {
   return [...PROJECTS]
     .filter((project) => project.featured)
     .sort((a, b) => {
-      const aPin = pinned.indexOf(a.slug);
-      const bPin = pinned.indexOf(b.slug);
-      if (aPin !== -1 || bPin !== -1) {
-        if (aPin === -1) return 1;
-        if (bPin === -1) return -1;
-        return aPin - bPin;
-      }
+      const pinned = comparePinnedProjects(a, b);
+      if (pinned !== null) return pinned;
       return b.year - a.year;
     })
     .slice(0, limit);
@@ -521,7 +525,11 @@ export function sortProjects(projects: Project[], order: SortOrder): Project[] {
   if (order === "title") {
     return copy.sort((a, b) => a.title.localeCompare(b.title));
   }
-  return copy.sort((a, b) => b.year - a.year || a.title.localeCompare(b.title));
+  return copy.sort((a, b) => {
+    const pinned = comparePinnedProjects(a, b);
+    if (pinned !== null) return pinned;
+    return b.year - a.year || a.title.localeCompare(b.title);
+  });
 }
 
 export function searchProjects(projects: Project[], term: string): Project[] {

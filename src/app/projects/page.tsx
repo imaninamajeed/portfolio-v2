@@ -22,8 +22,8 @@ export default function ProjectsPage() {
             Products, Prototypes, and Experiments
           </h1>
           <p className="mt-4 max-w-135 text-muted-foreground">
-            {projects.length} projects spanning operational dashboards, analytics,
-            computer vision, and public web apps. Each links to a short case study.
+            {projects.length} selected projects from recent work. Open any card for
+            the case study.
           </p>
         </div>
       </section>
