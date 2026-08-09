@@ -244,23 +244,22 @@ export const PROJECTS: Project[] = [
     visual: "dashboard",
     image: "/images/projects/kkr-nitmc-dashboard.png",
     summary:
-      "A 15-page traffic and transit operations dashboard for Malaysia's road network, rebuilt in Next.js with shadcn/ui, Recharts, and live Google Maps.",
+      "Traffic and transit operations dashboard for Malaysia's road network, rebuilt in Next.js.",
     description:
-      "NITMC Dashboard is a Next.js (App Router) rebuild of an earlier static prototype, covering executive reporting, live operations, traffic data collection, smart traffic lights, bus and journey planning, city planning, social media monitoring, predictive analytics, sustainability, road safety, bottleneck detection, and data quality — all behind one shared dashboard shell, modelled on Malaysian traffic zones (Klang Valley, Ampang, Bangsar, and others) using a typed mock dataset.",
-    role: "Solo frontend development, dashboard architecture, and deployment",
-    duration: "Personal project",
+      "A Next.js rebuild of a traffic and transit operations dashboard—executive reporting, live ops, and planning views in one shared shell, powered by a typed Malaysian mock dataset.",
+    role: "Frontend engineering, UI/UX direction, product prototyping, dashboard designing",
+    duration: "Work project",
     context: "Traffic and transit operations monitoring",
     problem:
       "Transit and traffic stakeholders needed a single, navigable interface to move between operational, planning, and analytics views instead of disconnected tools and reports.",
     approach:
-      "Rebuilt an earlier static Vite/vanilla-JS prototype as a Next.js App Router application, with one route per dashboard domain (operation, traffic data collector, smart traffic light, bus, journey planner, city planner, social, map service, predictive, sustainability, road safety, bottleneck, data quality, admin) sharing a common sidebar layout and presentation-mode provider. Charts run on Recharts and the UI on shadcn/ui and Tailwind CSS; live maps use @vis.gl/react-google-maps, falling back to a placeholder card when no API key is configured. A command palette (cmdk) and toast notifications round out the shell. Zone and sensor data is a typed, Malaysia-wide mock dataset shared across every dashboard. The original Vite implementation is preserved in-repo under `archive/` for reference.",
+      "Migrated a static Vite prototype to Next.js App Router—one route per dashboard domain, shared sidebar shell, Recharts charts, shadcn/ui, and a typed Malaysia-wide mock dataset.",
     outcome:
       "A cohesive, deployed dashboard suite (Vercel) that demonstrates how disparate transit and traffic data sources can be unified into one navigable operational interface, ready to swap mock data for a live feed.",
     highlights: [
-      "15 dashboard modules — executive, operation, traffic data collector, smart traffic light, bus, journey planner, city planner, and more",
-      "Rebuilt from an earlier static Vite/vanilla-JS prototype onto Next.js App Router, shadcn/ui, and Recharts",
-      "Live Google Maps traffic layer (@vis.gl/react-google-maps) with a graceful placeholder when no API key is set",
-      "Command palette (⌘K) navigation and typed, Malaysia-wide mock dataset shared across every dashboard",
+      "15 dashboard modules across executive, ops, traffic, transit, and planning",
+      "Migrated from static Vite to Next.js App Router with shadcn/ui and Recharts",
+      "Google Maps traffic layer with fallback when no API key is set",
     ],
     technologies: [
       "Next.js",
@@ -467,9 +466,20 @@ export const PROJECTS: Project[] = [
 export type SortOrder = "latest" | "oldest" | "title";
 
 export function getFeaturedProjects(limit = 6): Project[] {
+  const pinned = ["kkr-nitmc-dashboard"];
+
   return [...PROJECTS]
     .filter((project) => project.featured)
-    .sort((a, b) => b.year - a.year)
+    .sort((a, b) => {
+      const aPin = pinned.indexOf(a.slug);
+      const bPin = pinned.indexOf(b.slug);
+      if (aPin !== -1 || bPin !== -1) {
+        if (aPin === -1) return 1;
+        if (bPin === -1) return -1;
+        return aPin - bPin;
+      }
+      return b.year - a.year;
+    })
     .slice(0, limit);
 }
 

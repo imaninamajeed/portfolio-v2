@@ -1,0 +1,13 @@
+---
+description: Core stack and package conventions for this portfolio
+alwaysApply: true
+---
+
+# Portfolio stack
+
+- Package manager: **pnpm** only
+- Framework: Next.js App Router + TypeScript
+- Styling: Tailwind CSS v4; UI primitives from shadcn/ui (Nova preset) under `src/components/ui/`
+- Theming: `next-themes` for light/dark
+- Prefer matching existing patterns in `src/components/` and `src/app/` over introducing new abstractions
+- Before changing Next.js APIs, read the installed docs under `node_modules/next/dist/docs/`

@@ -16,13 +16,19 @@ import {
 } from "@/components/ui/sheet";
 import { ThemeToggle } from "@/components/theme-toggle";
 
-const SECTION_LINKS = [
-  { id: "top", href: "/", label: "Home" },
-  { id: "about", href: "/#about", label: "About" },
-  { id: "experience", href: "/#experience", label: "Experience" },
-] as const;
+const NAV_LINKS = [
+  { id: "top", href: "/", label: "Home", kind: "section" as const },
+  { id: "projects", href: "/projects", label: "Projects", kind: "route" as const },
+  { id: "about", href: "/#about", label: "About", kind: "section" as const },
+  {
+    id: "experience",
+    href: "/#experience",
+    label: "Experience",
+    kind: "section" as const,
+  },
+];
 
-const SECTION_IDS = SECTION_LINKS.map((link) => link.id);
+const OBSERVED_IDS = ["top", "about", "experience", "work"] as const;
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
@@ -34,7 +40,7 @@ export function SiteHeader() {
   useEffect(() => {
     if (!onHomepage) return;
 
-    const sections = SECTION_IDS.map((id) => document.getElementById(id)).filter(
+    const sections = OBSERVED_IDS.map((id) => document.getElementById(id)).filter(
       (el): el is HTMLElement => el !== null
     );
     if (sections.length === 0) return;
@@ -55,7 +61,8 @@ export function SiteHeader() {
     return () => observer.disconnect();
   }, [onHomepage]);
 
-  function isActive(id: string) {
+  function isActive(id: string, kind: "section" | "route") {
+    if (kind === "route") return onProjects;
     return onHomepage && activeSection === id;
   }
 
@@ -70,18 +77,24 @@ export function SiteHeader() {
           <span className="grid size-8.5 place-items-center rounded-[9px] bg-primary text-[0.74rem] tracking-wide text-primary-foreground">
             IM
           </span>
-          <span className="text-[0.96rem]">Imanina Majeed</span>
+          <span className="text-[0.96rem]">Imanina</span>
         </Link>
 
         <nav aria-label="Primary navigation" className="hidden items-center gap-1 md:flex">
-          {SECTION_LINKS.map((link) => (
+          {NAV_LINKS.map((link) => (
             <Link
               key={link.id}
               href={link.href}
-              aria-current={isActive(link.id) ? "location" : undefined}
+              aria-current={
+                isActive(link.id, link.kind)
+                  ? link.kind === "route"
+                    ? "page"
+                    : "location"
+                  : undefined
+              }
               className={cn(
                 "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
-                isActive(link.id)
+                isActive(link.id, link.kind)
                   ? "text-foreground"
                   : "text-muted-foreground hover:text-foreground"
               )}
@@ -89,16 +102,6 @@ export function SiteHeader() {
               {link.label}
             </Link>
           ))}
-          <Link
-            href="/projects"
-            aria-current={onProjects ? "page" : undefined}
-            className={cn(
-              "rounded-md px-3 py-1.5 text-sm font-medium transition-colors",
-              onProjects ? "text-foreground" : "text-muted-foreground hover:text-foreground"
-            )}
-          >
-            Projects
-          </Link>
         </nav>
 
         <div className="flex items-center gap-2">
@@ -123,31 +126,28 @@ export function SiteHeader() {
                 <SheetTitle>Navigation</SheetTitle>
               </SheetHeader>
               <nav aria-label="Mobile navigation" className="flex flex-col gap-1 px-4">
-                {SECTION_LINKS.map((link) => (
+                {NAV_LINKS.map((link) => (
                   <Link
                     key={link.id}
                     href={link.href}
                     onClick={() => setOpen(false)}
-                    aria-current={isActive(link.id) ? "location" : undefined}
+                    aria-current={
+                      isActive(link.id, link.kind)
+                        ? link.kind === "route"
+                          ? "page"
+                          : "location"
+                        : undefined
+                    }
                     className={cn(
                       "rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-accent hover:text-foreground",
-                      isActive(link.id) ? "font-semibold text-foreground" : "text-muted-foreground"
+                      isActive(link.id, link.kind)
+                        ? "font-semibold text-foreground"
+                        : "text-muted-foreground"
                     )}
                   >
                     {link.label}
                   </Link>
                 ))}
-                <Link
-                  href="/projects"
-                  onClick={() => setOpen(false)}
-                  aria-current={onProjects ? "page" : undefined}
-                  className={cn(
-                    "rounded-lg px-3 py-2.5 text-sm transition-colors hover:bg-accent hover:text-foreground",
-                    onProjects ? "font-semibold text-foreground" : "text-muted-foreground"
-                  )}
-                >
-                  Projects
-                </Link>
                 <Link
                   href="/#contact"
                   onClick={() => setOpen(false)}

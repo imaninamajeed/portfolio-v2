@@ -7,10 +7,14 @@ import styles from "./project-visual.module.css";
 export function ProjectVisual({
   project,
   large = false,
+  bleed = false,
+  priority = false,
   className,
 }: {
   project: Project;
   large?: boolean;
+  bleed?: boolean;
+  priority?: boolean;
   className?: string;
 }) {
   return (
@@ -19,9 +23,11 @@ export function ProjectVisual({
       className={cn(
         styles.visual,
         !project.image && styles[project.visual],
-        large
-          ? "min-h-115 rounded-xl border border-border"
-          : "min-h-55 border-b border-border",
+        bleed
+          ? "min-h-full rounded-none border-0"
+          : large
+            ? "min-h-115 rounded-xl border border-border"
+            : "h-55 shrink-0 border-b border-border",
         className
       )}
     >
@@ -30,8 +36,19 @@ export function ProjectVisual({
           src={project.image}
           alt={`${project.title} screenshot`}
           fill
-          sizes={large ? "(min-width: 1024px) 720px, 100vw" : "(min-width: 640px) 33vw, 100vw"}
-          className="object-cover object-top-left"
+          priority={priority}
+          sizes={
+            bleed
+              ? "100vw"
+              : large
+                ? "(min-width: 1024px) 720px, 100vw"
+                : "(min-width: 640px) 33vw, 100vw"
+          }
+          className={cn(
+            "object-cover transition-transform duration-700 ease-out",
+            bleed ? "object-top" : "object-top-left",
+            !bleed && "group-hover/media:scale-[1.03]"
+          )}
         />
       ) : (
         <div className={styles.mock}>

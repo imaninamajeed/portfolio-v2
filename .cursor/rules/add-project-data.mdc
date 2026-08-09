@@ -1,0 +1,14 @@
+---
+description: Conventions for editing the PROJECTS data file and case-study fields
+globs: src/lib/projects.ts
+alwaysApply: false
+---
+
+# Editing `src/lib/projects.ts`
+
+- Duplicate an existing object in `PROJECTS` and update fields; do not invent a parallel data source.
+- Required-ish fields: `slug`, `title`, `category`, `year`, `status`, `visibility`, `featured`, `visual`, `summary`, case-study copy (`description`, `role`, `duration`, `context`, `problem`, `approach`, `outcome`, `highlights`), `technologies`, `links`.
+- `slug` must be URL-safe and unique; case-study route is `/projects/[slug]`.
+- `visual` must be one of: `dashboard`, `road`, `rail`, `train`, `vision`, `builder`, `analytics`, `traffic`, `portfolio`, `table`, `weather`, `code`.
+- For a real screenshot: add `public/images/projects/<slug>.png` and set `image: "/images/projects/<slug>.png"`. Omit `image` to keep the generated visual art.
+- Set `featured: true` only for homepage featured work.

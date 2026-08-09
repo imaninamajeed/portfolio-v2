@@ -1,31 +1,81 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import {
+  ArrowRight,
+  Briefcase,
+  ChartColumn,
+  Code2,
+  Container,
+  Database,
+  FileText,
+  GraduationCap,
+  Layers,
+  LayoutDashboard,
+  Server,
+  Sparkles,
+  Wrench,
+  type LucideIcon,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { Eyebrow } from "@/components/eyebrow";
 import { Highlight } from "@/components/highlight";
 import { ProjectCard } from "@/components/project-card";
-import { Timeline, type TimelineEntry } from "@/components/timeline";
+import { type TimelineEntry } from "@/components/timeline";
 import { SkillRadarChart, type SkillRating } from "@/components/skill-radar-chart";
 import { getFeaturedProjects } from "@/lib/projects";
 
-const SKILLS = [
+function LinkedInIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+      className={className}
+    >
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 1 1-.004-4.123 2.062 2.062 0 0 1 .004 4.123zM7.119 20.452H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+    </svg>
+  );
+}
+
+function GitHubIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      aria-hidden="true"
+      className={className}
+    >
+      <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" />
+    </svg>
+  );
+}
+
+const ABOUT_SKILLS: {
+  title: string;
+  description: string;
+  icon: LucideIcon;
+}[] = [
   {
     title: "Frontend Systems",
     description: "React, Next.js, TypeScript, component architecture, and responsive UI.",
+    icon: Code2,
   },
   {
     title: "Data Interfaces",
     description: "Operational dashboards, analytics views, tables, charts, and status models.",
+    icon: LayoutDashboard,
   },
   {
     title: "Product Structure",
     description: "Information architecture, reusable patterns, workflows, and design systems.",
+    icon: Layers,
   },
   {
     title: "Rapid Prototyping",
     description: "Turning early requirements into practical, testable product experiences.",
+    icon: Sparkles,
   },
 ];
 
@@ -36,15 +86,7 @@ const EXPERIENCE: TimelineEntry[] = [
     org: "Recogine Technology Sdn Bhd",
     current: true,
     description:
-      "Develop web applications from user requirements, collaborate with stakeholders, and deliver analytics and data-visualisation interfaces for operational use cases.",
-  },
-  {
-    date: "Mar 2021 — Aug 2021",
-    title: "Research Intern",
-    org: "Universiti Kebangsaan Malaysia",
-    current: false,
-    description:
-      "Researched Microsoft products to support feature recommendations and assisted with technical documentation for project reports.",
+      "Ship analytics interfaces and operational dashboards for complex systems.",
   },
 ];
 
@@ -53,19 +95,8 @@ const EDUCATION: TimelineEntry[] = [
     date: "2018 — 2021",
     title: "Bachelor of Computer Science (Hons.)",
     org: "Universiti Teknologi MARA",
-    description: "CGPA 3.51 · First Class",
+    description: "First Class · CGPA 3.51",
   },
-  {
-    date: "2015 — 2018",
-    title: "Diploma in Computer Science",
-    org: "Universiti Teknologi MARA",
-    description: "CGPA 3.62",
-  },
-];
-
-const CERTIFICATIONS = [
-  { title: "SheCodes Plus", org: "Responsive web and React development" },
-  { title: "Certified Data Analyst", org: "Asia Pacific University" },
 ];
 
 const SKILL_RATINGS: SkillRating[] = [
@@ -77,23 +108,41 @@ const SKILL_RATINGS: SkillRating[] = [
   { label: "Integrations", value: 3.5 },
 ];
 
-const STACK = [
-  "HTML",
-  "CSS",
-  "JavaScript",
-  "TypeScript",
-  "React",
-  "Next.js",
-  "Node.js",
-  "Python",
-  "SQL",
-  "Tailwind CSS",
-  "shadcn/ui",
-  "Docker",
-  "Grafana",
-  "GitHub",
-  "GitLab",
-  "Agile",
+const STACK_GROUPS: {
+  title: string;
+  icon: LucideIcon;
+  items: string[];
+}[] = [
+  {
+    title: "Frontend",
+    icon: Code2,
+    items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui"],
+  },
+  {
+    title: "Backend",
+    icon: Server,
+    items: ["FastAPI", "Node.js / Express"],
+  },
+  {
+    title: "Data",
+    icon: Database,
+    items: ["PostgreSQL", "SQL", "REST APIs"],
+  },
+  {
+    title: "Data Visualization",
+    icon: ChartColumn,
+    items: ["Grafana", "Chart.js"],
+  },
+  {
+    title: "DevOps",
+    icon: Container,
+    items: ["Docker", "Git", "GitHub / GitLab"],
+  },
+  {
+    title: "Tools",
+    icon: Wrench,
+    items: ["VS Code", "Cursor", "pnpm"],
+  },
 ];
 
 export default function HomePage() {
@@ -101,45 +150,44 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="grid min-h-[calc(100vh-69px)] items-center" id="top">
-        <div className="mx-auto grid w-full max-w-290 gap-10 px-4 py-20 sm:grid-cols-[1fr_auto] sm:items-center">
-          <div>
-            <Eyebrow className="mb-4">Product Engineer · Subang Jaya, Malaysia</Eyebrow>
-            <h1 className="max-w-165 text-4xl leading-[1.15] font-semibold tracking-[-0.03em] sm:text-5xl">
-              I Build Clear Dashboards for Complex Operations
-            </h1>
-            <p className="mt-5 max-w-135 text-lg text-muted-foreground">
-              I&rsquo;m Imanina, a product engineer turning messy operational data
-              into calm, usable interfaces.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Button asChild size="lg">
-                <Link href="/projects">
-                  View Projects
-                  <ArrowRight className="size-4" aria-hidden="true" />
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link
-                  href="https://github.com/imaninamajeed/portfolio-v2/blob/main/public/documents/resume.pdf"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  View Resume
-                </Link>
-              </Button>
+      <section
+        className="grid min-h-[calc(100vh-69px)] items-center"
+        id="top"
+      >
+        <div className="mx-auto w-full max-w-290 px-4 pt-16 pb-10 sm:pt-20">
+          <div className="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
+            <div className="hero-stagger">
+              <Eyebrow className="mb-4 text-[0.8rem] font-semibold tracking-[0.08em]">
+                Product engineer · Subang Jaya, Malaysia
+              </Eyebrow>
+              <h1 className="max-w-2xl text-5xl leading-[1.08] font-semibold tracking-[-0.04em] sm:text-6xl lg:text-7xl">
+                Building clear digital products for{" "}
+                <span className="text-muted-foreground">complex operations</span>
+              </h1>
+              <p className="mt-6 max-w-lg text-base text-muted-foreground sm:text-lg">
+                I design and ship operational dashboards and product UI that help
+                teams see what matters and act with confidence.
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <Button asChild size="lg">
+                  <Link href="/projects">
+                    Explore Projects
+                    <ArrowRight className="size-4" aria-hidden="true" />
+                  </Link>
+                </Button>
+              </div>
             </div>
-          </div>
 
-          <div className="mx-auto sm:mx-0">
-            <Image
-              src="/images/profile.png"
-              alt="Default profile picture"
-              width={220}
-              height={220}
-              priority
-              className="size-45 rounded-xl border border-border object-cover shadow-lg sm:size-55"
-            />
+            <div className="flex justify-center lg:justify-end">
+              <Image
+                src="/images/profile.png"
+                alt="Imanina Majeed"
+                width={320}
+                height={400}
+                priority
+                className="w-full max-w-sm rounded-2xl border border-border object-cover shadow-sm"
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -153,85 +201,162 @@ export default function HomePage() {
             </h2>
           </div>
           <div>
-            <p className="text-[1.18rem]">
-              My work sits between <Highlight>frontend engineering</Highlight>,{" "}
-              <Highlight>analytics</Highlight>, and product design. I enjoy turning
-              complex operational requirements into interfaces that feel structured,
-              calm, and easy to use.
+            <p className="text-[1.15rem] leading-relaxed">
+              I work where <Highlight>frontend engineering</Highlight> meets{" "}
+              <Highlight>analytics</Highlight> and product structure—
+              especially systems that help teams move with confidence.
             </p>
             <p className="mt-4 text-muted-foreground">
-              The goal is not just decoration. It is helping users see what matters,
-              understand what changed, and decide what to do next with{" "}
-              <Highlight>clarity</Highlight>.
+              I focus on clear data presentation, sensible workflows, and UI
+              patterns that stay easy to maintain as products grow.
             </p>
             <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {SKILLS.map((skill) => (
-                <div key={skill.title} className="rounded-lg border border-border p-4">
-                  <h3 className="text-sm font-semibold">{skill.title}</h3>
-                  <p className="mt-1.5 text-[0.78rem] text-muted-foreground">
-                    {skill.description}
-                  </p>
-                </div>
-              ))}
+              {ABOUT_SKILLS.map((skill) => {
+                const Icon = skill.icon;
+                return (
+                  <div key={skill.title} className="rounded-lg border border-border p-4">
+                    <Icon
+                      className="mb-2.5 size-4 text-muted-foreground"
+                      aria-hidden="true"
+                    />
+                    <h3 className="text-sm font-semibold">{skill.title}</h3>
+                    <p className="mt-1.5 text-[0.78rem] text-muted-foreground">
+                      {skill.description}
+                    </p>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
       </section>
 
-      <section className="border-t border-border bg-muted/45 py-24 sm:py-28" id="experience">
+      <section className="border-t border-border py-20 sm:py-24" id="experience">
         <div className="mx-auto w-full max-w-290 px-4">
-          <div className="mb-10 grid gap-3">
-            <div>
-              <Eyebrow className="mb-2.5">Experience &amp; Education</Eyebrow>
-              <h2 className="max-w-185 text-4xl font-semibold tracking-[-0.045em] sm:text-5xl">
-                A Foundation across Engineering, Research, and Data
+          <div className="mb-8 flex flex-wrap items-end justify-between gap-6">
+            <div className="max-w-3xl">
+              <Eyebrow className="mb-2.5">Experience</Eyebrow>
+              <h2 className="reveal-title text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">
+                Built through engineering, analytics, and continuous practice
               </h2>
+              <p className="mt-4 text-muted-foreground">
+                Hands-on engineering, computer science, and analytics—applied to
+                complex systems, operational dashboards, and practical digital products
+              </p>
             </div>
-            <p className="text-muted-foreground">
-              Professional experience is supported by formal computer-science education
-              and continuous frontend practice.
-            </p>
+            <Button asChild variant="outline" size="lg">
+              <Link
+                href="/documents/resume.pdf"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FileText className="size-4" aria-hidden="true" />
+                View Resume
+              </Link>
+            </Button>
           </div>
 
-          <div className="grid gap-4 lg:grid-cols-[1.15fr_0.85fr]">
-            <div className="rounded-xl bg-card p-6 text-card-foreground ring-1 ring-foreground/10">
-              <h3 className="mb-6 text-base font-semibold">Experience</h3>
-              <Timeline items={EXPERIENCE} />
-            </div>
-
-            <div className="grid gap-4">
-              <div className="rounded-xl bg-card p-6 text-card-foreground ring-1 ring-foreground/10">
-                <h3 className="mb-6 text-base font-semibold">Education</h3>
-                <Timeline items={EDUCATION} />
+          <div className="grid gap-3 lg:grid-cols-2">
+            <div className="rounded-xl bg-card p-4 text-card-foreground ring-1 ring-foreground/10 sm:p-5">
+              <div className="mb-4 flex items-center gap-2">
+                <Briefcase
+                  className="size-3.5 text-muted-foreground"
+                  aria-hidden="true"
+                />
+                <h3 className="text-sm font-semibold">Experience</h3>
               </div>
-              <div className="rounded-xl bg-card p-5 text-card-foreground ring-1 ring-foreground/10">
-                <h3 className="text-base font-semibold">Certifications</h3>
-                {CERTIFICATIONS.map((item, index) => (
-                  <div
-                    key={item.title}
-                    className={index > 0 ? "mt-4 border-t border-border pt-4" : "mt-4"}
-                  >
-                    <strong className="text-[0.86rem]">{item.title}</strong>
-                    <p className="text-[0.73rem] text-muted-foreground">{item.org}</p>
+              {EXPERIENCE.map((item) => (
+                <article key={`${item.title}-${item.org}`}>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <time className="font-mono text-[0.7rem] text-muted-foreground">
+                      {item.date}
+                    </time>
+                    {item.current && <Badge variant="outline">Current</Badge>}
                   </div>
-                ))}
-              </div>
+                  <h4 className="mt-2 text-base font-semibold tracking-tight">
+                    {item.title}
+                  </h4>
+                  <p className="mt-0.5 text-sm text-muted-foreground">{item.org}</p>
+                  {item.description && (
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                      {item.description}
+                    </p>
+                  )}
+                </article>
+              ))}
             </div>
-          </div>
 
-          <div className="mt-4 grid gap-4 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
+            <div className="rounded-xl bg-card p-4 text-card-foreground ring-1 ring-foreground/10 sm:p-5">
+              <div className="mb-4 flex items-center gap-2">
+                <GraduationCap
+                  className="size-3.5 text-muted-foreground"
+                  aria-hidden="true"
+                />
+                <h3 className="text-sm font-semibold">Education</h3>
+              </div>
+              {EDUCATION.map((item) => (
+                <article key={`${item.title}-${item.org}`}>
+                  <time className="font-mono text-[0.7rem] text-muted-foreground">
+                    {item.date}
+                  </time>
+                  <h4 className="mt-2 text-base font-semibold tracking-tight">
+                    {item.title}
+                  </h4>
+                  <p className="mt-0.5 text-sm text-muted-foreground">{item.org}</p>
+                  {item.description && (
+                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                      {item.description}
+                    </p>
+                  )}
+                </article>
+              ))}
+            </div>
+
             <SkillRadarChart skills={SKILL_RATINGS} />
-            <div className="rounded-xl bg-card p-6 text-card-foreground ring-1 ring-foreground/10">
-              <h3 className="text-base font-semibold">Technology Stack</h3>
-              <div aria-label="Technology stack" className="mt-4 flex flex-wrap gap-2.5">
-                {STACK.map((item) => (
-                  <span
-                    key={item}
-                    className="rounded-md border border-border bg-background px-2.5 py-1.5 font-mono text-[0.69rem] text-muted-foreground"
-                  >
-                    {item}
-                  </span>
-                ))}
+
+            <div className="flex h-full flex-col rounded-xl bg-card p-4 text-card-foreground ring-1 ring-foreground/10 sm:p-5">
+              <div className="flex items-center gap-2">
+                <Layers
+                  className="size-3.5 text-muted-foreground"
+                  aria-hidden="true"
+                />
+                <h3 className="text-sm font-semibold">Technology Stack</h3>
+              </div>
+              <div
+                aria-label="Technology stack"
+                className="mt-4 grid flex-1 content-start gap-2.5 sm:grid-cols-2"
+              >
+                {STACK_GROUPS.map((group) => {
+                  const Icon = group.icon;
+                  return (
+                    <div
+                      key={group.title}
+                      className="rounded-lg border border-border/80 bg-background/50 p-3"
+                    >
+                      <div className="mb-2 flex items-center gap-2">
+                        <span className="grid size-6 place-items-center rounded-md border border-border bg-card">
+                          <Icon
+                            className="size-3.5 text-foreground/80"
+                            aria-hidden="true"
+                          />
+                        </span>
+                        <span className="text-[0.72rem] font-semibold tracking-wide text-foreground/90">
+                          {group.title}
+                        </span>
+                      </div>
+                      <div className="flex flex-wrap gap-1.5">
+                        {group.items.map((item) => (
+                          <span
+                            key={item}
+                            className="rounded-md border border-border bg-card px-2 py-0.5 font-mono text-[0.65rem] text-muted-foreground"
+                          >
+                            {item}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -243,15 +368,15 @@ export default function HomePage() {
           <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
             <div>
               <Eyebrow className="mb-2.5">Featured Work</Eyebrow>
-              <h2 className="max-w-185 text-4xl font-semibold tracking-[-0.045em] sm:text-5xl">
-                A Few Recent Projects
+              <h2 className="reveal-title max-w-185 text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">
+                A focused selection from a growing project archive
               </h2>
             </div>
             <Link
               href="/projects"
               className="inline-flex items-center gap-1.5 text-[0.82rem] font-semibold hover:underline hover:underline-offset-4"
             >
-              View All Projects
+              View all projects
               <ArrowRight className="size-3.5" aria-hidden="true" />
             </Link>
           </div>
@@ -263,31 +388,39 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="py-20" id="contact">
-        <div className="mx-auto w-full max-w-290 px-4">
-          <div className="grid gap-8 rounded-xl bg-card p-8 text-card-foreground ring-1 ring-foreground/10 sm:p-12 lg:grid-cols-[1fr_auto] lg:items-end">
-            <div>
-              <Eyebrow className="mb-2.5">Contact</Eyebrow>
-              <h2 className="max-w-185 text-4xl font-semibold tracking-[-0.045em] sm:text-5xl">
-                Have a Product or Dashboard That Needs Clarity?
-              </h2>
-              <p className="mt-4 max-w-170 text-muted-foreground">
-                Reach out through LinkedIn for frontend opportunities, operational
-                dashboards, design systems, or product prototyping.
-              </p>
-            </div>
-            <div className="flex flex-wrap gap-2.5 lg:justify-end">
-              <Button asChild size="lg">
-                <Link href="https://linkedin.com/in/imaninamajeed" target="_blank" rel="noreferrer">
-                  Connect on LinkedIn
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link href="https://github.com/imaninamajeed" target="_blank" rel="noreferrer">
-                  GitHub
-                </Link>
-              </Button>
-            </div>
+      <section className="border-t border-border py-20 sm:py-24" id="contact">
+        <div className="mx-auto flex w-full max-w-290 flex-col gap-8 px-4 sm:flex-row sm:items-end sm:justify-between">
+          <div className="max-w-2xl">
+            <Eyebrow className="mb-2.5">Contact</Eyebrow>
+            <h2 className="reveal-title text-4xl font-semibold tracking-[-0.04em] sm:text-5xl">
+              Have a product or dashboard that needs clarity?
+            </h2>
+            <p className="mt-4 text-muted-foreground">
+              Reach out through LinkedIn for frontend opportunities, operational
+              dashboards, design systems, or product prototyping.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2.5">
+            <Button asChild size="lg">
+              <Link
+                href="https://linkedin.com/in/imaninamajeed"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <LinkedInIcon className="size-4" />
+                Connect on LinkedIn
+              </Link>
+            </Button>
+            <Button asChild variant="outline" size="lg">
+              <Link
+                href="https://github.com/imaninamajeed"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <GitHubIcon className="size-4" />
+                GitHub
+              </Link>
+            </Button>
           </div>
         </div>
       </section>

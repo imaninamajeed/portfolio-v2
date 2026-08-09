@@ -18,7 +18,7 @@ export default function ProjectsPage() {
       <section className="pb-12">
         <div className="mx-auto w-full max-w-290 px-4 pt-16">
           <Eyebrow className="mb-2.5">Projects</Eyebrow>
-          <h1 className="max-w-165 text-5xl font-semibold tracking-[-0.045em] sm:text-6xl">
+          <h1 className="reveal-title max-w-165 text-5xl font-semibold tracking-[-0.04em] sm:text-6xl">
             Products, Prototypes, and Experiments
           </h1>
           <p className="mt-4 max-w-135 text-muted-foreground">

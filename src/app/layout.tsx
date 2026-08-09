@@ -38,7 +38,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="flex min-h-screen flex-col bg-background text-foreground">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
           <a
             href="#main-content"
             className="fixed top-3 left-3 z-[999] -translate-y-[150%] rounded-lg bg-primary px-3.5 py-2.5 text-sm font-semibold text-primary-foreground transition-transform focus:translate-y-0"
