@@ -1,0 +1,230 @@
+.stack {
+  display: grid;
+  gap: 32px;
+}
+
+.card {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: clamp(24px, 4vw, 48px);
+  padding: clamp(24px, 3.4vw, 44px);
+  min-height: min(560px, calc(100svh - var(--header-h) - 80px));
+  background: linear-gradient(180deg, var(--card-1), var(--card-2));
+  border: 1px solid var(--line-2);
+  border-radius: 28px;
+  transform-origin: 50% 0;
+  transform: scale(var(--s, 1));
+  filter: brightness(var(--b, 1));
+  box-shadow: var(--shadow-card);
+}
+
+/* Sticky stacking only when ScrollEffects confirms every card fits the viewport */
+.stack[data-stack="on"] .card {
+  position: sticky;
+  top: calc(var(--header-h) + 16px + var(--i) * 14px);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.num {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-3);
+  letter-spacing: 0.1em;
+}
+.num b {
+  color: var(--volt-fg);
+  font-weight: 600;
+}
+
+.domain {
+  margin-top: 32px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ice-fg);
+  font-size: 14.5px;
+  font-weight: 500;
+}
+.domain :global(.lucide) {
+  width: 16px;
+  height: 16px;
+}
+
+.card h3 {
+  margin-top: 12px;
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.line {
+  margin-top: 14px;
+  color: var(--text-2);
+  font-size: var(--fs-lg);
+  font-weight: 300;
+  max-width: 38ch;
+}
+
+.metrics {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.metrics div {
+  background: var(--cell);
+  padding: 14px 14px 12px;
+}
+.metrics b {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+  color: var(--text);
+}
+.metrics span {
+  display: block;
+  margin-top: 6px;
+  font-size: 12.5px;
+  color: var(--text-3);
+  line-height: 1.35;
+}
+
+.foot {
+  margin-top: auto;
+  padding-top: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.visual {
+  position: relative;
+  display: block;
+  width: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--screen);
+  min-height: 280px;
+  cursor: pointer;
+}
+.visual > svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.visual :global(img) {
+  transition: transform 1.2s var(--ease);
+}
+.visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 55%, rgba(6, 7, 10, 0.6));
+  pointer-events: none;
+}
+.card:hover .visual :global(img) {
+  transform: scale(1.04);
+}
+
+.hint {
+  position: absolute;
+  z-index: 2;
+  right: 16px;
+  bottom: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: var(--volt);
+  color: var(--volt-ink);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 13px;
+  transform: translateY(8px);
+  opacity: 0;
+  transition:
+    transform 0.4s var(--ease),
+    opacity 0.4s var(--ease);
+}
+.hint :global(.lucide) {
+  width: 16px;
+  height: 16px;
+}
+.card:hover .hint {
+  transform: none;
+  opacity: 1;
+}
+
+@media (hover: none) {
+  /* No hover on touch: keep the affordance visible */
+  .hint {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 1080px) {
+  .card {
+    grid-template-columns: 1fr;
+  }
+  .visual {
+    order: -1;
+    aspect-ratio: 16 / 9;
+    min-height: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .card {
+    position: relative;
+    top: auto;
+    transform: none;
+    filter: none;
+    min-height: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .card {
+    padding: 16px;
+    border-radius: 22px;
+  }
+  .metrics b {
+    font-size: 1.35rem;
+  }
+  .metrics span {
+    font-size: 11.5px;
+  }
+}

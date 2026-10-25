@@ -1,0 +1,352 @@
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(40px, 6vw, 80px);
+  min-height: calc(100svh - var(--header-h));
+  padding-block: clamp(32px, 6vw, 72px);
+}
+
+.statusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 7px 14px 7px 12px;
+  border-radius: 999px;
+  background: rgba(var(--volt-rgb), 0.08);
+  border: 1px solid rgba(var(--volt-rgb), 0.25);
+  color: var(--volt-fg);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.pulse {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--volt);
+}
+.pulse::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--volt);
+  animation: ping 1.8s var(--ease) infinite;
+}
+
+.title {
+  margin-top: 28px;
+  font-size: var(--fs-hero);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+}
+.line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+}
+.line > span {
+  display: inline-block;
+  transform: translateY(105%);
+  animation: rise 1.1s var(--ease) forwards;
+}
+.line:nth-of-type(3) > span {
+  animation-delay: 0.1s;
+}
+.line:nth-of-type(4) > span {
+  animation-delay: 0.2s;
+}
+.title :global(.volt) {
+  text-shadow: var(--volt-glow);
+}
+@keyframes rise {
+  to {
+    transform: none;
+  }
+}
+
+.role {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 28px;
+  min-height: 1.6em;
+  font-family: var(--font-display);
+  font-size: clamp(1.05rem, 0.9rem + 0.7vw, 1.5rem);
+  font-weight: 500;
+  color: var(--ice-fg);
+}
+.prompt {
+  color: var(--text-3);
+}
+.caret {
+  width: 10px;
+  height: 1.1em;
+  background: var(--ice-fg);
+  animation: blink 1s steps(1) infinite;
+}
+
+.lede {
+  margin-top: 18px;
+  max-width: 46ch;
+  font-size: var(--fs-lg);
+  font-weight: 300;
+  color: var(--text-2);
+}
+.cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 36px;
+}
+
+/* ---------- Holo card ---------- */
+.visual {
+  position: relative;
+  perspective: 1200px;
+  justify-self: center;
+  width: min(100%, 480px);
+}
+
+.holo {
+  position: relative;
+  border-radius: var(--r-lg);
+  padding: 1px;
+  background: conic-gradient(
+    from var(--a),
+    rgba(var(--volt-rgb), 0.9),
+    rgba(var(--ice-rgb), 0.5),
+    transparent 40%,
+    transparent 60%,
+    rgba(var(--volt-rgb), 0.9)
+  );
+  transform: rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  transform-style: preserve-3d;
+  transition: transform 0.6s var(--ease);
+  animation:
+    spin 8s linear infinite,
+    float 7s ease-in-out infinite;
+  box-shadow: 0 40px 120px -40px rgba(var(--volt-rgb), 0.35);
+}
+@keyframes spin {
+  to {
+    --a: 360deg;
+  }
+}
+
+.holoInner {
+  position: relative;
+  border-radius: calc(var(--r-lg) - 1px);
+  overflow: hidden;
+  background: var(--screen-ink);
+  aspect-ratio: 1;
+}
+.holo:hover svg {
+  transform: scale(1.04);
+}
+
+.scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.12) 0 1px, transparent 1px 3px);
+}
+.scan::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 30%;
+  top: -30%;
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+  animation: scan 4.5s var(--ease) infinite;
+}
+@keyframes scan {
+  to {
+    top: 110%;
+  }
+}
+
+.glare {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(400px circle at var(--gx, 50%) var(--gy, 0%), rgba(255, 255, 255, 0.25), transparent 50%);
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.corner {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
+  opacity: 0.8;
+  transition: border-color 0.4s;
+}
+.holo:hover .corner {
+  border-color: var(--volt);
+  opacity: 1;
+}
+.tl {
+  top: 14px;
+  left: 14px;
+  border-right: 0;
+  border-bottom: 0;
+}
+.tr {
+  top: 14px;
+  right: 14px;
+  border-left: 0;
+  border-bottom: 0;
+}
+.bl {
+  bottom: 14px;
+  left: 14px;
+  border-right: 0;
+  border-top: 0;
+}
+.br {
+  bottom: 14px;
+  right: 14px;
+  border-left: 0;
+  border-top: 0;
+}
+
+.label {
+  position: absolute;
+  left: 40px;
+  right: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+.label > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 9px;
+  border-radius: 6px;
+  background: rgba(6, 7, 10, 0.8);
+  color: #eef1f5;
+  backdrop-filter: blur(6px);
+  white-space: nowrap;
+}
+.label :global(.lucide) {
+  width: 12px;
+  height: 12px;
+  color: #c8ff3d;
+}
+.labelTop {
+  top: 13px;
+}
+.labelBottom {
+  bottom: 13px;
+}
+.rec span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--volt);
+  animation: blink 1.2s steps(1) infinite;
+}
+
+.chip {
+  position: absolute;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 13.5px;
+  font-weight: 500;
+  white-space: nowrap;
+  background: var(--chip-bg);
+  border: 1px solid var(--line-2);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--shadow-chip);
+}
+.chip :global(.lucide) {
+  width: 16px;
+  height: 16px;
+  color: var(--volt-fg);
+}
+.chipA {
+  top: 16%;
+  left: -14%;
+  animation: float 6s ease-in-out infinite;
+}
+.chipB {
+  bottom: 12%;
+  right: -10%;
+  animation: float 7s ease-in-out -2s infinite;
+}
+.chipB :global(.lucide) {
+  color: var(--ice-fg);
+}
+
+@media (max-width: 1080px) {
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    padding-top: 48px;
+  }
+  .visual {
+    width: min(100%, 420px);
+    margin-top: 8px;
+  }
+  .chipA {
+    left: -6%;
+  }
+  .chipB {
+    right: -6%;
+  }
+}
+
+@media (max-width: 560px) {
+  .chip {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+  .chipA {
+    display: none;
+  }
+  .chipB {
+    bottom: -14px;
+    right: 8px;
+  }
+}
+
+.copy {
+  min-width: 0;
+}
+
+/* Day scene: lighter frame overlays to match the portrait */
+:root[data-theme="light"] .holoInner {
+  background: #eef0e8;
+}
+:root[data-theme="light"] .scan {
+  background: repeating-linear-gradient(0deg, rgba(12, 14, 18, 0.035) 0 1px, transparent 1px 3px);
+}
+:root[data-theme="light"] .corner {
+  border-color: rgba(12, 14, 18, 0.3);
+}
+:root[data-theme="light"] .holo:hover .corner {
+  border-color: var(--volt-fg);
+}
+:root[data-theme="light"] .label > span {
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--text);
+  box-shadow: 0 0 0 1px var(--line);
+}
+:root[data-theme="light"] .label :global(.lucide) {
+  color: var(--volt-fg);
+}

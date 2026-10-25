@@ -1,0 +1,72 @@
+/* Scene palette. Night (dark theme) is the default; day overrides it for the light theme. */
+.art {
+  --pt-room-1: #1b2a1a;
+  --pt-room-2: #0e1219;
+  --pt-room-3: #090b10;
+  --pt-grid: rgba(255, 255, 255, 0.035);
+  --pt-sky-1: #101a30;
+  --pt-sky-2: #1b2440;
+  --pt-city: #0b1020;
+  --pt-frame: #2a3245;
+  --pt-desk: #141822;
+  --pt-back: #7ce7ff;
+  --pt-steam: #eef1f5;
+  --pt-night: 1;
+  --pt-day: 0;
+  --pt-glow: 1;
+
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s var(--ease);
+}
+
+:root[data-theme="light"] .art {
+  --pt-room-1: #fff3d6;
+  --pt-room-2: #f1efe6;
+  --pt-room-3: #e3e6dc;
+  --pt-grid: rgba(12, 14, 18, 0.05);
+  --pt-sky-1: #7fcdf0;
+  --pt-sky-2: #d4f0ff;
+  --pt-city: #9eb2c6;
+  --pt-frame: #b4bcc6;
+  --pt-desk: #d8c8ad;
+  --pt-back: #ffd27a;
+  --pt-steam: #8a919c;
+  --pt-night: 0;
+  --pt-day: 1;
+  --pt-glow: 0.45;
+}
+
+.art :is(stop, path, rect, g) {
+  transition:
+    stop-color 0.5s,
+    fill 0.5s,
+    stroke 0.5s,
+    opacity 0.5s;
+}
+
+.room1 { stop-color: var(--pt-room-1); }
+.room2 { stop-color: var(--pt-room-2); }
+.room3 { stop-color: var(--pt-room-3); }
+.sky1 { stop-color: var(--pt-sky-1); }
+.sky2 { stop-color: var(--pt-sky-2); }
+.back { stop-color: var(--pt-back); }
+.gridLine { stroke: var(--pt-grid); }
+.city { fill: var(--pt-city); }
+.frame { stroke: var(--pt-frame); }
+.desk { fill: var(--pt-desk); }
+.steam { stroke: var(--pt-steam); }
+
+.night,
+.lights { opacity: var(--pt-night); }
+.day,
+.beam { opacity: var(--pt-day); }
+.glow { opacity: var(--pt-glow); }
+
+.mono {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 19px;
+  fill: var(--volt-ink);
+  letter-spacing: 0.02em;
+}

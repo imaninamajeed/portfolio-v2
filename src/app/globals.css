@@ -1,15 +1,23 @@
+/* ==========================================================================
+   Imanina Majeed — Portfolio
+   Tokens, base and shared primitives. Section styles live in CSS modules
+   next to their components (src/components/portfolio/*.module.css).
+   Spec: THEME.md
+   ========================================================================== */
+
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+/* Dark is the default; light is opt-in via :root[data-theme="light"] */
+@custom-variant dark (&:is(:root:not([data-theme="light"]) *));
 
 @theme inline {
+  --font-sans: var(--font-body);
+  --font-heading: var(--font-display);
+
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-sans);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -39,9 +47,6 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
-  --color-success: var(--success);
-  --color-highlight: var(--highlight);
-  --color-highlight-foreground: var(--highlight-foreground);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -49,148 +54,563 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* Brand colours as utilities: bg-volt, text-ice-fg, … */
+  --color-volt: var(--volt);
+  --color-volt-fg: var(--volt-fg);
+  --color-ice: var(--ice);
+  --color-ice-fg: var(--ice-fg);
 }
 
+/* ---------- Tokens ---------- */
 :root {
-  --background: oklch(0.985 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.145 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.96 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.96 0 0);
-  --muted-foreground: oklch(0.5 0 0);
-  --accent: oklch(0.96 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.9 0 0);
-  --input: oklch(0.9 0 0);
-  --ring: oklch(0.55 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --radius: 0.75rem;
-  --success: oklch(0.55 0 0);
-  --highlight: oklch(0.92 0 0);
-  --highlight-foreground: oklch(0.25 0 0);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.145 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.96 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.9 0 0);
-  --sidebar-ring: oklch(0.55 0 0);
+  --bg: #06070a;
+  --bg-2: #0b0d12;
+  --bg-3: #11141b;
+  --glass: rgba(255, 255, 255, 0.035);
+  --glass-2: rgba(255, 255, 255, 0.06);
+  --line: rgba(255, 255, 255, 0.08);
+  --line-2: rgba(255, 255, 255, 0.15);
+  --text: #eef1f5;
+  --text-2: #a5abb8;
+  --text-3: #7c8392;
+
+  --volt: #c8ff3d;
+  --volt-rgb: 200, 255, 61;
+  --volt-ink: #0a0d03;
+  --ice: #7ce7ff;
+  --ice-rgb: 124, 231, 255;
+  --violet: #b6a4ff;
+  --mute: #8c94a3;
+  --volt-fg: #c8ff3d; /* accent used for text/icons */
+  --ice-fg: #7ce7ff;
+  --surface: #0a0c11;
+  --card-1: #10131a;
+  --card-2: #0a0c11;
+  --cell: #0d1016;
+  --pill: rgba(255, 255, 255, 0.02);
+  --header-bg: rgba(6, 7, 10, 0.72);
+  --menu-bg: rgba(11, 13, 18, 0.97);
+  --chip-bg: rgba(17, 20, 27, 0.85);
+  --backdrop: rgba(3, 4, 6, 0.75);
+  --row-hover: rgba(200, 255, 61, 0.07);
+  --spot: rgba(200, 255, 61, 0.07);
+  --glow-1: rgba(200, 255, 61, 0.28);
+  --glow-2: rgba(124, 231, 255, 0.1);
+  --volt-glow: 0 0 40px rgba(200, 255, 61, 0.35);
+  --grain: 0.05;
+  --shadow-card: 0 -24px 60px -24px rgba(0, 0, 0, 0.95);
+  --shadow-chip: 0 20px 50px -20px rgba(0, 0, 0, 0.8);
+  --shadow-dialog: 0 40px 140px -20px rgba(0, 0, 0, 0.9);
+  --field-dot: 255, 255, 255;
+  --field-dot-a: 0.07;
+
+  /* Screens stay dark in both themes (hero portrait, project visuals) */
+  --screen: #0c0f15;
+  --screen-ink: #090b10;
+
+  --font-display: var(--font-oxanium), "Oxanium", ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-outfit), "Outfit", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --fs-hero: clamp(2.9rem, 1.2rem + 7.2vw, 7rem);
+  --fs-h2: clamp(2rem, 1.2rem + 3.2vw, 3.75rem);
+  --fs-h3: clamp(1.5rem, 1.1rem + 1.6vw, 2.25rem);
+  --fs-lg: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
+
+  --r: 14px;
+  --r-lg: 22px;
+  --wrap: 1240px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --header-h: 72px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  color-scheme: dark;
+
+  /* shadcn/ui aliases, mapped onto the portfolio tokens */
+  --background: var(--bg);
+  --foreground: var(--text);
+  --card: var(--card-1);
+  --card-foreground: var(--text);
+  --popover: var(--surface);
+  --popover-foreground: var(--text);
+  --primary: var(--volt);
+  --primary-foreground: var(--volt-ink);
+  --secondary: var(--glass-2);
+  --secondary-foreground: var(--text);
+  --muted: var(--glass);
+  --muted-foreground: var(--text-2);
+  --accent: var(--glass-2);
+  --accent-foreground: var(--text);
+  --destructive: #ff6b6b;
+  --border: var(--line);
+  --input: var(--line-2);
+  --ring: var(--volt);
+  --radius: 0.875rem;
+  --chart-1: var(--volt);
+  --chart-2: var(--ice);
+  --chart-3: var(--violet);
+  --chart-4: var(--mute);
+  --chart-5: var(--text-3);
+  --sidebar: var(--surface);
+  --sidebar-foreground: var(--text);
+  --sidebar-primary: var(--volt);
+  --sidebar-primary-foreground: var(--volt-ink);
+  --sidebar-accent: var(--glass-2);
+  --sidebar-accent-foreground: var(--text);
+  --sidebar-border: var(--line);
+  --sidebar-ring: var(--volt);
 }
 
-.dark {
-  --background: oklch(0.1 0 0);
-  --foreground: oklch(0.97 0 0);
-  --card: oklch(0.155 0 0);
-  --card-foreground: oklch(0.97 0 0);
-  --popover: oklch(0.155 0 0);
-  --popover-foreground: oklch(0.97 0 0);
-  --primary: oklch(0.97 0 0);
-  --primary-foreground: oklch(0.12 0 0);
-  --secondary: oklch(0.2 0 0);
-  --secondary-foreground: oklch(0.97 0 0);
-  --muted: oklch(0.2 0 0);
-  --muted-foreground: oklch(0.68 0 0);
-  --accent: oklch(0.2 0 0);
-  --accent-foreground: oklch(0.97 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 12%);
-  --input: oklch(1 0 0 / 14%);
-  --ring: oklch(0.65 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --success: oklch(0.75 0 0);
-  --highlight: oklch(0.28 0 0);
-  --highlight-foreground: oklch(0.92 0 0);
-  --sidebar: oklch(0.155 0 0);
-  --sidebar-foreground: oklch(0.97 0 0);
-  --sidebar-primary: oklch(0.97 0 0);
-  --sidebar-primary-foreground: oklch(0.12 0 0);
-  --sidebar-accent: oklch(0.2 0 0);
-  --sidebar-accent-foreground: oklch(0.97 0 0);
-  --sidebar-border: oklch(1 0 0 / 12%);
-  --sidebar-ring: oklch(0.65 0 0);
+:root[data-theme="light"] {
+  --bg: #f3f4ef;
+  --bg-2: #ebece6;
+  --bg-3: #e2e4dc;
+  --glass: rgba(255, 255, 255, 0.6);
+  --glass-2: rgba(255, 255, 255, 0.8);
+  --line: rgba(12, 14, 18, 0.09);
+  --line-2: rgba(12, 14, 18, 0.16);
+  --text: #0e1014;
+  --text-2: #4a505b;
+  --text-3: #646a75;
+  --volt-fg: #4c7a00;
+  --ice-fg: #0a6e8f;
+  --violet: #6d55e0;
+  --mute: #8a919c;
+  --surface: #fafbf7;
+  --card-1: #ffffff;
+  --card-2: #f6f7f2;
+  --cell: #fafbf7;
+  --pill: rgba(255, 255, 255, 0.7);
+  --header-bg: rgba(243, 244, 239, 0.78);
+  --menu-bg: rgba(250, 251, 247, 0.98);
+  --chip-bg: rgba(255, 255, 255, 0.9);
+  --backdrop: rgba(30, 34, 40, 0.4);
+  --row-hover: rgba(124, 180, 0, 0.1);
+  --spot: rgba(124, 180, 0, 0.08);
+  --glow-1: rgba(170, 230, 40, 0.45);
+  --glow-2: rgba(124, 231, 255, 0.25);
+  --volt-glow: none;
+  --grain: 0.035;
+  --shadow-card: 0 -18px 50px -24px rgba(20, 24, 30, 0.22);
+  --shadow-chip: 0 16px 40px -18px rgba(20, 24, 30, 0.3);
+  --shadow-dialog: 0 40px 120px -30px rgba(20, 24, 30, 0.4);
+  --field-dot: 12, 14, 18;
+  --field-dot-a: 0.09;
+  color-scheme: light;
 }
 
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  html {
-    @apply font-sans;
-  }
+@property --a {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* ---------- Base ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 12px);
+  scrollbar-gutter: stable; /* no layout shift when the case dialog locks scroll */
+  -webkit-text-size-adjust: 100%;
+  transition: background-color 0.4s var(--ease);
+}
+
+/* Room for the fixed mobile tab bar so it never covers the end of the page */
+@media (max-width: 900px) {
   body {
-    @apply bg-background text-foreground;
-  }
-  h1,
-  h2,
-  h3,
-  .font-heading {
-    font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+    padding-bottom: calc(84px + env(safe-area-inset-bottom));
   }
 }
 
-@layer utilities {
-  @keyframes hero-fade-up {
-    from {
-      opacity: 0;
-      transform: translateY(1rem);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+/* Lock page scroll while the case dialog is open */
+html:has(dialog[open]) {
+  overflow: hidden;
+}
 
-  @keyframes reveal-up {
-    from {
-      opacity: 0;
-      transform: translateY(0.75rem);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip; /* clip, not hidden: keeps position: sticky working */
+}
 
-  .hero-stagger > * {
-    animation: hero-fade-up 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-  .hero-stagger > *:nth-child(1) {
-    animation-delay: 0.04s;
-  }
-  .hero-stagger > *:nth-child(2) {
-    animation-delay: 0.12s;
-  }
-  .hero-stagger > *:nth-child(3) {
-    animation-delay: 0.2s;
-  }
-  .hero-stagger > *:nth-child(4) {
-    animation-delay: 0.28s;
-  }
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
 
-  .reveal-title {
-    animation: reveal-up 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
-  @supports (animation-timeline: view()) {
-    .reveal-title {
-      animation-timeline: view();
-      animation-range: entry 0% entry 35%;
-    }
+button {
+  font: inherit;
+  color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+::selection {
+  background: var(--volt);
+  color: var(--volt-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--volt);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Lucide icons: 1em box, 1.75 stroke (THEME.md §2) */
+.lucide {
+  width: 1em;
+  height: 1em;
+  flex: none;
+  stroke-width: 1.75;
+}
+
+/* ---------- Shared primitives ---------- */
+.wrap {
+  width: 100%;
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.volt {
+  color: var(--volt-fg);
+}
+
+.dim {
+  color: var(--text-3);
+}
+
+.skip {
+  position: fixed;
+  left: 16px;
+  top: -100px;
+  z-index: 200;
+  background: var(--volt);
+  color: var(--volt-ink);
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+.skip:focus {
+  top: 12px;
+}
+
+/* Buttons */
+.btn {
+  --h: 48px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  height: var(--h);
+  padding: 0 22px;
+  border-radius: 999px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background-color 0.25s,
+    border-color 0.25s,
+    color 0.25s,
+    box-shadow 0.3s,
+    transform 0.35s var(--ease);
+}
+.btn .lucide {
+  width: 18px;
+  height: 18px;
+  transition: transform 0.35s var(--ease);
+}
+.btn:hover .lucide-arrow-up-right,
+.btn:hover .lucide-arrow-down-right {
+  transform: translate(2px, -2px);
+}
+.btn:active {
+  filter: brightness(0.94);
+}
+.btn-volt {
+  background: var(--volt);
+  color: var(--volt-ink);
+}
+.btn-volt:hover {
+  box-shadow: 0 8px 40px -6px rgba(var(--volt-rgb), 0.55);
+}
+.btn-ghost {
+  background: var(--glass);
+  border-color: var(--line-2);
+  backdrop-filter: blur(10px);
+}
+.btn-ghost:hover {
+  border-color: rgba(var(--volt-rgb), 0.6);
+  color: var(--volt-fg);
+}
+.btn-sm {
+  --h: 40px;
+  padding: 0 16px;
+  font-size: 14px;
+}
+.btn-lg {
+  --h: 56px;
+  padding: 0 26px;
+  font-size: 16px;
+}
+
+.icon-btn {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: var(--glass);
+  border: 1px solid var(--line);
+  cursor: pointer;
+  transition:
+    border-color 0.2s,
+    background-color 0.2s,
+    color 0.2s;
+}
+.icon-btn:hover {
+  border-color: rgba(var(--volt-rgb), 0.5);
+  color: var(--volt-fg);
+}
+.icon-btn .lucide {
+  width: 18px;
+  height: 18px;
+}
+
+/* Touch targets: 44px minimum on coarse pointers */
+@media (pointer: coarse) {
+  .icon-btn {
+    width: 44px;
+    height: 44px;
   }
+  .btn-sm {
+    --h: 44px;
+  }
+}
+
+/* Pills and status */
+.pill {
+  font-size: 13px;
+  padding: 5px 11px;
+  border-radius: 999px;
+  border: 1px solid var(--line-2);
+  color: var(--text-2);
+  background: var(--pill);
+  white-space: nowrap;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  color: var(--text-2);
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  white-space: nowrap;
+}
+.status i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--c, var(--mute));
+  box-shadow: 0 0 10px var(--c, transparent);
+}
+
+/* Section heads */
+.section {
+  padding-block: clamp(80px, 11vw, 150px);
+}
+.sec-head {
+  margin-bottom: clamp(36px, 5vw, 64px);
+}
+.sec-head-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 24px 48px;
+  flex-wrap: wrap;
+}
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-2);
+  margin-bottom: 18px;
+}
+.kicker span {
+  color: var(--volt-fg);
+  padding: 3px 8px;
+  border: 1px solid rgba(var(--volt-rgb), 0.35);
+  border-radius: 6px;
+  letter-spacing: 0.04em;
+}
+.sec-title {
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  max-width: 18ch;
+}
+.sec-note {
+  max-width: 34ch;
+  color: var(--text-2);
+  font-weight: 300;
+}
+
+/* Glass panel with a pointer-tracked border glow (--x/--y set by PointerEffects) */
+.glass {
+  position: relative;
+  background: var(--glass);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  isolation: isolate;
+}
+.glass::before {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  pointer-events: none;
+  background: radial-gradient(300px circle at var(--x, -200px) var(--y, -200px), rgba(var(--volt-rgb), 0.8), transparent 60%);
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(420px circle at var(--x, -200px) var(--y, -200px), rgba(var(--volt-rgb), 0.06), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.glass:hover::before,
+.glass:hover::after {
+  opacity: 1;
+}
+
+/* Scroll reveal: content is visible by default. ScrollEffects hides only what is
+   below the fold on mount, so there is no flash and no dependence on JS. */
+[data-reveal] {
+  transition:
+    opacity 0.7s var(--ease),
+    transform 0.7s var(--ease);
+  transition-delay: var(--d, 0s);
+}
+[data-reveal="hidden"] {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Entrance used by the hero copy */
+.fade-up {
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeUp 0.9s var(--ease) forwards;
+  animation-delay: var(--d, 0s);
+}
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes ping {
+  to {
+    transform: scale(3);
+    opacity: 0;
+  }
+}
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+@keyframes float {
+  50% {
+    translate: 0 -10px;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0s !important;
+  }
+  [data-reveal="hidden"] {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* View-transition crossfade when switching theme */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.3s;
 }

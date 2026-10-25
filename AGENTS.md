@@ -7,6 +7,11 @@ This version has breaking changes — APIs, conventions, and file structure may 
 # Portfolio agent notes
 
 - Use **pnpm** only (`pnpm install`, `pnpm dev`, `pnpm lint`, `pnpm build`). Do not use npm or yarn.
-- Stack: Next.js App Router, TypeScript, Tailwind CSS v4, shadcn/ui (Nova), `next-themes`.
-- To add or edit case studies, change only [`src/lib/projects.ts`](src/lib/projects.ts). Homepage featured work, the projects archive, and related-work sections all derive from the `PROJECTS` array.
-- Optional screenshots go in `public/images/projects/<slug>.png` with matching `image` on the project entry.
+- Stack: Next.js App Router, TypeScript, Tailwind CSS v4, CSS Modules, `next/font` (Oxanium + Outfit), `lucide-react`.
+- All copy lives in [`src/data/portfolio.ts`](src/data/portfolio.ts) (`ROLES`, `CASES`, `ARCHIVE`, `SKILLS`, `TIMELINE`, `STATS`, `SITE`). `SKILLS` drives both the skill meters and the radar chart. To add or edit a case study, change only `CASES` there; the work cards, archive links, role "See it in" links and the case dialog all derive from it.
+- The design spec is [`THEME.md`](THEME.md). Tokens are CSS variables in `src/app/globals.css`; section styles are CSS Modules next to each component in `src/components/portfolio/`.
+- Optional screenshots go in `public/images/projects/<slug>.png` with a matching `image` on the case entry. Without one, the case shows its animated `sketch`.
+- Case studies open in a dialog at `#case/<id>`; link to them with `<a href={caseHref(id)}>`.
+- Interactive pieces are client components; everything else is server-rendered. Keep it that way.
+- The résumé is served from `public/resume/` and linked via `SITE.resume`.
+- shadcn/ui primitives remain in `src/components/ui/` but the current design does not use them.

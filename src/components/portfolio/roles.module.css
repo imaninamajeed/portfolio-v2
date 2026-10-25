@@ -1,0 +1,155 @@
+/* Cards share row tracks through subgrid, so icon, title, description, skills
+   and the "See it in" footer line up across all three cards. */
+.roles {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 16px;
+  row-gap: 16px;
+}
+
+.role {
+  grid-row: span 5;
+  display: grid;
+  grid-template-rows: subgrid;
+  row-gap: 0;
+  padding: 28px;
+}
+
+.head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: rgba(var(--volt-rgb), 0.1);
+  border: 1px solid rgba(var(--volt-rgb), 0.3);
+  color: var(--volt-fg);
+  transition:
+    transform 0.5s var(--ease),
+    background-color 0.3s;
+}
+.icon :global(.lucide) {
+  width: 26px;
+  height: 26px;
+}
+.role:hover .icon {
+  transform: rotate(-8deg) scale(1.06);
+  background: rgba(var(--volt-rgb), 0.18);
+}
+
+.num {
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-3);
+  letter-spacing: 0.1em;
+}
+
+/* One line in every card: the text sizes to the title's width (cqi), capped both ways.
+   The container sits on the h3, not the card: containment on the card would disable subgrid. */
+.title {
+  container-type: inline-size;
+  margin-top: 28px;
+}
+.titleText {
+  display: block;
+  font-size: clamp(1.1rem, 7.6cqi, 1.6rem);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.qualifier {
+  font-size: 0.68em;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--text-3);
+}
+
+/* Same as the title: one line per card in the 3-column layout, sized to the card */
+.line {
+  container-type: inline-size;
+  margin-top: 10px;
+  color: var(--text-2);
+  font-weight: 300;
+}
+.lineText {
+  display: block;
+  font-size: clamp(14px, 5.3cqi, 17px);
+  white-space: nowrap;
+}
+
+.skills {
+  align-self: start;
+  margin-top: 22px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 6px;
+}
+
+.proof {
+  align-self: end;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line-2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  flex-wrap: wrap;
+}
+.proof > span {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  color: var(--ice-fg);
+  padding-block: 4px;
+}
+.link :global(.lucide) {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.3s var(--ease);
+}
+.link:hover {
+  color: var(--volt-fg);
+}
+.link:hover :global(.lucide) {
+  transform: translate(2px, -2px);
+}
+
+@media (max-width: 1080px) {
+  .roles {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  /* One card per row: nothing to line up with, so let text wrap at full size */
+  .lineText {
+    font-size: 17px;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 560px) {
+  .role {
+    padding: 22px;
+  }
+}

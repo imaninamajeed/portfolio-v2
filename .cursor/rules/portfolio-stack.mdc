@@ -7,7 +7,8 @@ alwaysApply: true
 
 - Package manager: **pnpm** only
 - Framework: Next.js App Router + TypeScript
-- Styling: Tailwind CSS v4; UI primitives from shadcn/ui (Nova preset) under `src/components/ui/`
-- Theming: `next-themes` for light/dark
-- Prefer matching existing patterns in `src/components/` and `src/app/` over introducing new abstractions
+- Styling: Tailwind CSS v4 tokens in `src/app/globals.css`, CSS Modules per section in `src/components/portfolio/`; spec in `THEME.md`
+- Theming: `data-theme` on `<html>` set by an inline script from `localStorage` key `theme` (dark default); no theme library
+- Content: `src/data/portfolio.ts` only
+- Prefer matching existing patterns in `src/components/portfolio/` and `src/app/` over introducing new abstractions
 - Before changing Next.js APIs, read the installed docs under `node_modules/next/dist/docs/`

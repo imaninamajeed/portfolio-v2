@@ -1,14 +1,14 @@
 ---
-description: Conventions for editing the PROJECTS data file and case-study fields
-globs: src/lib/projects.ts
+description: Conventions for editing the portfolio content file and case-study fields
+globs: src/data/portfolio.ts
 alwaysApply: false
 ---
 
-# Editing `src/lib/projects.ts`
+# Editing `src/data/portfolio.ts`
 
-- Duplicate an existing object in `PROJECTS` and update fields; do not invent a parallel data source.
-- Required-ish fields: `slug`, `title`, `category`, `year`, `status`, `visibility`, `featured`, `visual`, `summary`, case-study copy (`description`, `role`, `duration`, `context`, `problem`, `approach`, `outcome`, `highlights`), `technologies`, `links`.
-- `slug` must be URL-safe and unique; case-study route is `/projects/[slug]`.
-- `visual` must be one of: `dashboard`, `road`, `rail`, `train`, `vision`, `builder`, `analytics`, `traffic`, `portfolio`, `table`, `weather`, `code`.
-- For a real screenshot: add `public/images/projects/<slug>.png` and set `image: "/images/projects/<slug>.png"`. Omit `image` to keep the generated visual art.
-- Set `featured: true` only for homepage featured work.
+- Duplicate an existing object in `CASES` and update fields; do not invent a parallel data source.
+- Fields: `id`, `title`, `short`, `icon`, `domain`, `year`, `status`, `line`, `role`, `sketch`, `metrics`, `problem`, `did`, `result`, `stack`; optional `image` and `links`.
+- `id` must be URL-safe and unique, and added to the `CaseId` union. Case studies open at `#case/<id>`.
+- `sketch` must be one of: `map`, `table`, `periods`, `line`, `pipeline`. `icon` must be an `IconName` (add new icons to `components/portfolio/icon.tsx`).
+- For a real screenshot: add `public/images/projects/<id>.png` and set `image: "/images/projects/<id>.png"`. Omit `image` to keep the animated sketch.
+- To list a project in the archive, add an `ARCHIVE` row; set `caseId` only when a case study exists.

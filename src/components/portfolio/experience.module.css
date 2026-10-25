@@ -1,0 +1,298 @@
+/* ---------- Row 1: timeline + tech stack ---------- */
+.top {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
+}
+
+.subhead {
+  margin-bottom: 14px;
+  font-family: var(--font-display);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-3);
+  scroll-margin-top: calc(var(--header-h) + 24px);
+}
+
+.timeline {
+  display: grid;
+  gap: 16px;
+  align-content: start;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 18px;
+  padding: 28px;
+}
+
+.itemIcon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: rgba(var(--ice-rgb), 0.08);
+  border: 1px solid rgba(var(--ice-rgb), 0.25);
+  color: var(--ice-fg);
+}
+.itemIcon :global(.lucide) {
+  width: 22px;
+  height: 22px;
+}
+
+.date {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 13.5px;
+  color: var(--text-3);
+  letter-spacing: 0.04em;
+}
+
+.now {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--volt-ink);
+  background: var(--volt);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+
+.item h4 {
+  margin-top: 10px;
+  font-size: 1.35rem;
+}
+
+.org {
+  margin-top: 4px;
+  color: var(--volt-fg);
+  font-size: 15px;
+}
+
+.desc {
+  margin-top: 12px;
+  color: var(--text-2);
+  font-weight: 300;
+}
+
+.toolkit {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.tool {
+  padding: 22px;
+}
+.toolHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+}
+.toolHead :global(.lucide) {
+  width: 18px;
+  height: 18px;
+  color: var(--volt-fg);
+}
+.toolList {
+  margin-top: 14px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* ---------- Row 2: radar + skill groups ---------- */
+.skills {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: 16px;
+  align-items: start;
+}
+.spaced {
+  margin-top: clamp(40px, 5vw, 64px);
+}
+
+.radarCol {
+  position: sticky;
+  top: calc(var(--header-h) + 24px);
+}
+
+.radarCard {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+}
+.radarNote {
+  color: var(--text-3);
+  font-size: 14px;
+}
+.radarCard > svg {
+  max-width: 400px;
+  margin-inline: auto;
+}
+
+.scale {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px;
+}
+.scale li {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 7px 2px 2px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  font-size: 11.5px;
+  color: var(--text-2);
+}
+.scale b {
+  display: grid;
+  place-items: center;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  background: var(--glass-2);
+  font-family: var(--font-display);
+  font-size: 10.5px;
+  color: var(--text);
+}
+
+/* ---------- Skill groups ---------- */
+.groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 24px 22px;
+}
+
+.groupHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+  font-size: 1.1rem;
+}
+.groupHead :global(.lucide) {
+  width: 20px;
+  height: 20px;
+  color: var(--volt-fg);
+}
+
+.score {
+  margin-left: auto;
+  padding: 2px 9px;
+  border-radius: 999px;
+  border: 1px solid rgba(var(--volt-rgb), 0.35);
+  font-size: 13px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--volt-fg);
+}
+
+.list {
+  display: grid;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    "name level"
+    "meter meter";
+  align-items: baseline;
+  gap: 8px 12px;
+  padding-block: 13px;
+  border-bottom: 1px dashed var(--line);
+}
+.row:last-child {
+  border-bottom: 0;
+}
+
+.name {
+  grid-area: name;
+  font-size: 15px;
+}
+
+.level {
+  grid-area: level;
+  font-family: var(--font-display);
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+.meter {
+  grid-area: meter;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 3px; /* surface gap between segments */
+}
+.meter span {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--line-2);
+  transform-origin: 0 50%;
+  transition:
+    transform 0.8s var(--ease),
+    background-color 0.3s;
+  transition-delay: var(--d, 0s);
+}
+.meter .on {
+  background: var(--volt-fg);
+}
+[data-inview="off"] .meter .on {
+  transform: scaleX(0);
+}
+
+
+@media (max-width: 1080px) {
+  .top,
+  .skills {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .radarCol {
+    position: static;
+  }
+}
+
+@media (max-width: 700px) {
+  .groups {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .toolkit {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .item {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 22px;
+  }
+  .radarCard,
+  .group,
+  .tool {
+    padding: 20px;
+  }
+}

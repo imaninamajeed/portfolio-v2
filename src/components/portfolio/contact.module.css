@@ -1,0 +1,79 @@
+.contact {
+  padding-bottom: clamp(80px, 10vw, 140px);
+}
+
+.card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding: clamp(48px, 8vw, 110px) clamp(20px, 6vw, 80px);
+  border-radius: 32px;
+  border: 1px solid var(--line-2);
+  background: linear-gradient(180deg, var(--card-1), var(--card-2));
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.glow {
+  position: absolute;
+  z-index: -1;
+  left: 50%;
+  bottom: -60%;
+  width: 120%;
+  aspect-ratio: 2;
+  translate: -50% 0;
+  background: radial-gradient(closest-side, var(--glow-1), var(--glow-2) 50%, transparent);
+  filter: blur(20px);
+  animation: breathe 6s ease-in-out infinite;
+}
+@keyframes breathe {
+  50% {
+    opacity: 0.6;
+    transform: scale(1.06);
+  }
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.6;
+  background-image:
+    linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 48px 48px;
+  -webkit-mask: radial-gradient(ellipse at 50% 100%, #000, transparent 70%);
+  mask: radial-gradient(ellipse at 50% 100%, #000, transparent 70%);
+}
+
+.title {
+  font-size: clamp(2.2rem, 1.2rem + 4.4vw, 5rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  max-width: 16ch;
+  line-height: 1;
+}
+
+.sub {
+  margin-top: 22px;
+  color: var(--text-2);
+  font-size: var(--fs-lg);
+  font-weight: 300;
+  max-width: 44ch;
+}
+
+.actions {
+  margin-top: 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+@media (max-width: 560px) {
+  .actions > :global(.btn) {
+    width: 100%;
+  }
+}

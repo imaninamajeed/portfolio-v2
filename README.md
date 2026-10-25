@@ -6,60 +6,46 @@ archive, and a reusable case-study template driven by one typed data file.
 ## Stack
 
 - [Next.js](https://nextjs.org) (App Router, TypeScript)
-- [Tailwind CSS v4](https://tailwindcss.com)
-- [shadcn/ui](https://ui.shadcn.com) (Radix primitives, Nova preset)
+- [Tailwind CSS v4](https://tailwindcss.com) for tokens and utilities, CSS Modules for section styles
+- [`next/font`](https://nextjs.org/docs/app/getting-started/fonts): Oxanium (headings) and Outfit (body)
 - [lucide-react](https://lucide.dev) icons
-- [next-themes](https://github.com/pacocoursey/next-themes) for light/dark mode
-- [pnpm](https://pnpm.io) — the only supported package manager
+- [pnpm](https://pnpm.io), the only supported package manager
+
+The visual system (tokens, type, motion, light/dark rules) is specified in [`THEME.md`](THEME.md).
 
 ## Structure
 
 ```text
 src/
 ├── app/
-│   ├── page.tsx                 # Home — hero, featured work, about, experience, contact
-│   ├── icon.tsx                 # Generated favicon
-│   ├── projects/
-│   │   ├── page.tsx             # Searchable/filterable archive
-│   │   └── [slug]/
-│   │       ├── page.tsx         # Case-study template
-│   │       └── not-found.tsx    # Custom 404 for unknown slugs
-├── components/
-│   ├── ui/                      # shadcn/ui primitives
-│   ├── site-header.tsx          # Nav, theme toggle, mobile menu (Sheet)
-│   ├── site-footer.tsx
-│   ├── project-card.tsx
-│   ├── project-visual.tsx       # Real screenshot if project.image is set, else abstract per-category art
-│   └── projects-archive.tsx     # Search/filter/sort/pagination (client)
-└── lib/
-    └── projects.ts              # The only file to edit when adding a project
+│   ├── layout.tsx               # Fonts, theme init script, metadata, shell
+│   ├── page.tsx                 # Hero → Stats → Roles → Work → Archive → Experience (timeline + skills radar) → Contact
+│   ├── globals.css              # Design tokens + shared primitives
+│   ├── manifest.ts, icon.svg, apple-icon.png, favicon.ico, opengraph-image.tsx
+├── components/portfolio/        # One file (+ .module.css) per section; "use client" only where needed
+├── data/portfolio.ts            # The only file to edit for content
+└── lib/                         # theme.ts (theme storage), dom.ts (helpers)
 public/
-├── images/
-│   ├── profile.png
-│   └── projects/
-│       └── kkr-nitmc-dashboard.png   # Named after the project's `slug`
-└── documents/
-    └── resume.pdf
+├── icons/                       # PWA icons
+├── images/projects/             # Optional screenshots, named after the case id
+└── resume/                      # Résumé PDF
 archive/                         # Superseded predecessors, kept for reference
-├── legacy-static-site/          # The vanilla HTML/CSS/JS site this replaced
-└── portfolio-v2-legacy-app/     # An earlier, unfinished Next.js scaffold
 ```
 
 ## Add a project
 
-Open `src/lib/projects.ts`, duplicate an existing object in `PROJECTS`, and
-update its fields (`slug`, `title`, `category`, `year`, `status`,
-`featured`, case-study copy, `technologies`, `links`, etc.). The homepage,
-archive filters, and related-work sections all derive from this array —
-nothing else needs to change.
+Open `src/data/portfolio.ts`, duplicate an object in `CASES`, and update its
+fields (`id`, `title`, `domain`, `status`, `metrics`, `problem`, `did`,
+`result`, `stack`, …). Add the new id to the `CaseId` type. The work cards, the
+case dialog and the "next project" flow all derive from this array. To list it
+in the archive, add a row to `ARCHIVE` with `caseId` set.
 
-`visual` accepts one of: `dashboard`, `road`, `rail`, `train`, `vision`,
-`builder`, `analytics`, `traffic`, `portfolio`, `table`, `weather`, `code`
-(see `src/components/project-visual.module.css`).
+`sketch` picks the animated interface drawing shown when there is no
+screenshot: `map`, `table`, `periods`, `line` or `pipeline`. To use a real
+screenshot instead, drop it in `public/images/projects/<id>.png` and set
+`image: "/images/projects/<id>.png"`.
 
-To use a real screenshot instead of the abstract art, drop it in
-`public/images/projects/<slug>.png` and set `image: "/images/projects/<slug>.png"`
-on the project. Omit `image` to keep the generated `visual` art.
+Case studies deep-link at `/#case/<id>`.
 
 ## Development
 

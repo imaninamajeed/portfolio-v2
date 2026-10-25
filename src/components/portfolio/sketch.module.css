@@ -1,0 +1,118 @@
+/* Animated interface sketch palette. Always dark: these draw a device screen. */
+.bg {
+  fill: var(--screen);
+}
+.grid {
+  stroke: rgba(255, 255, 255, 0.045);
+}
+.panel {
+  fill: rgba(255, 255, 255, 0.03);
+  stroke: rgba(255, 255, 255, 0.09);
+}
+.mute {
+  fill: rgba(255, 255, 255, 0.12);
+}
+.mute2 {
+  fill: rgba(255, 255, 255, 0.05);
+}
+.text {
+  fill: rgba(255, 255, 255, 0.78);
+}
+.volt {
+  fill: var(--volt);
+}
+.ice {
+  fill: var(--ice);
+}
+.violet {
+  fill: var(--violet);
+}
+.voltS {
+  stroke: var(--volt);
+  fill: none;
+}
+.iceS {
+  stroke: var(--ice);
+  fill: none;
+}
+.line {
+  stroke: rgba(255, 255, 255, 0.14);
+  fill: none;
+}
+.trace {
+  stroke: rgba(255, 255, 255, 0.75);
+  fill: none;
+}
+
+/* Entrance: everything is drawn by default. ScrollEffects sets data-inview="off" on the
+   wrapper until it scrolls into view, then "on", which plays these transitions. */
+.bar,
+.barx,
+.pop {
+  transform-box: fill-box;
+  transition: transform 1.2s var(--ease);
+  transition-delay: var(--d, 0s);
+}
+.bar {
+  transform-origin: 50% 100%;
+}
+.barx {
+  transform-origin: 0 50%;
+}
+.pop {
+  transform-origin: center;
+  transition-duration: 0.7s;
+}
+.draw {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 2.2s var(--ease);
+}
+
+[data-inview="off"] .bar {
+  transform: scaleY(0.12);
+}
+[data-inview="off"] .barx {
+  transform: scaleX(0.1);
+}
+[data-inview="off"] .pop {
+  transform: scale(0);
+}
+[data-inview="off"] .draw {
+  stroke-dashoffset: 600;
+}
+
+/* Live-data loops */
+.blink {
+  animation: skBlink 2.4s ease-in-out infinite;
+}
+.ping {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: skPing 2.2s var(--ease) infinite;
+}
+.flow {
+  stroke-dasharray: 3 9;
+  animation: skFlow 1.4s linear infinite;
+}
+
+@keyframes skBlink {
+  50% {
+    opacity: 0.25;
+  }
+}
+@keyframes skPing {
+  from {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  to {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+@keyframes skFlow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}

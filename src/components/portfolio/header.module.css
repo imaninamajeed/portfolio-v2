@@ -1,0 +1,221 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  height: var(--header-h);
+}
+
+/* The bar sits flush at the top, then floats as a frosted capsule once you scroll */
+.bar {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-inline: 0;
+  border: 1px solid transparent;
+  border-radius: 20px;
+  transition:
+    height 0.4s var(--ease),
+    margin 0.4s var(--ease),
+    padding 0.4s var(--ease),
+    background-color 0.3s,
+    border-color 0.3s,
+    box-shadow 0.3s;
+}
+.scrolled .bar {
+  height: calc(100% - 16px);
+  margin-top: 8px;
+  padding-inline: 12px 6px;
+  background: var(--header-bg);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+  border-color: var(--line);
+  box-shadow: var(--shadow-chip);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: none;
+}
+.mark {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--volt-ink);
+  background: var(--volt);
+  clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+  transition:
+    transform 0.6s var(--ease),
+    width 0.4s var(--ease),
+    height 0.4s var(--ease);
+}
+.scrolled .mark {
+  width: 34px;
+  height: 34px;
+}
+.logo:hover .mark {
+  transform: rotate(60deg);
+}
+.logoText {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 17px;
+  letter-spacing: 0.01em;
+}
+.logoText span {
+  color: var(--text-3);
+}
+
+/* ---------- Desktop nav with sliding indicator ---------- */
+.nav {
+  margin-left: auto;
+}
+.nav ul {
+  position: relative;
+  display: flex;
+  gap: 2px;
+  padding: 4px;
+  border-radius: 999px;
+  background: var(--glass);
+  border: 1px solid var(--line);
+}
+.indicator {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  width: var(--w, 0);
+  transform: translateX(var(--x, 0));
+  border-radius: 999px;
+  background: var(--volt);
+  box-shadow: 0 4px 18px -6px rgba(var(--volt-rgb), 0.6);
+  opacity: 0;
+  transition:
+    transform 0.45s var(--ease),
+    width 0.45s var(--ease),
+    opacity 0.25s;
+  pointer-events: none;
+}
+.nav .link {
+  white-space: nowrap;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 15px 8px 13px;
+  border-radius: 999px;
+  font-size: 14.5px;
+  color: var(--text-2);
+  transition: color 0.25s;
+}
+.nav .link :global(.lucide) {
+  width: 15px;
+  height: 15px;
+  opacity: 0.75;
+  transition: opacity 0.25s;
+}
+.nav .link:hover :global(.lucide),
+.nav .link[aria-current] :global(.lucide) {
+  opacity: 1;
+}
+.nav .link:hover {
+  color: var(--text);
+}
+.nav .link[aria-current] {
+  color: var(--volt-ink);
+}
+
+
+.end {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+}
+/* Résumé, clock and theme share one glass pill */
+.tools {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 14px;
+  background: var(--glass);
+  border: 1px solid var(--line);
+}
+.tools :global(.icon-btn) {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  border-color: transparent;
+  background: transparent;
+}
+.tools :global(.icon-btn):hover {
+  background: var(--glass-2);
+}
+.clock {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding-inline: 8px 10px;
+  border-right: 1px solid var(--line);
+  margin-right: 2px;
+  height: 22px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-3);
+  white-space: nowrap;
+}
+.clock :global(.lucide) {
+  width: 14px;
+  height: 14px;
+}
+
+@media (max-width: 1120px) {
+  .clock {
+    display: none;
+  }
+}
+
+/* Narrow desktop/tablet: drop the wordmark and tighten links so the bar stays on one line */
+@media (max-width: 1080px) {
+  .logoText {
+    display: none;
+  }
+  .nav .link {
+    gap: 6px;
+    padding: 8px 11px 8px 10px;
+    font-size: 13.5px;
+  }
+}
+
+/* ---------- Mobile: section links live in the bottom tab bar ---------- */
+@media (max-width: 900px) {
+  .nav,
+  .end .cta {
+    display: none;
+  }
+  .end {
+    margin-left: auto;
+  }
+}
+
+@media (max-width: 560px) {
+  .logoText {
+    display: none;
+  }
+}
+
+@media (pointer: coarse) {
+  .tools :global(.icon-btn) {
+    width: 42px;
+    height: 42px;
+  }
+}

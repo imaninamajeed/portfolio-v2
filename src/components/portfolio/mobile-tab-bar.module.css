@@ -1,0 +1,94 @@
+/* Bottom tab bar: phones and small tablets only */
+.bar {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .bar {
+    position: fixed;
+    z-index: 95;
+    left: max(10px, env(safe-area-inset-left));
+    right: max(10px, env(safe-area-inset-right));
+    bottom: calc(8px + env(safe-area-inset-bottom));
+    display: block;
+    max-width: 520px;
+    margin-inline: auto;
+    padding: 6px;
+    border-radius: 22px;
+    background: var(--header-bg);
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    border: 1px solid var(--line-2);
+    box-shadow: var(--shadow-dialog);
+  }
+
+  .bar ul {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    min-height: 52px; /* comfortable thumb target */
+    padding: 5px 2px 4px;
+    border-radius: 16px;
+    color: var(--text-3);
+    -webkit-tap-highlight-color: transparent;
+    transition: color 0.2s;
+  }
+  .tab:active .icon {
+    transform: scale(0.92);
+  }
+
+  /* Material-style pill behind the active icon */
+  .icon {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 28px;
+    border-radius: 999px;
+    transition:
+      background-color 0.3s var(--ease),
+      color 0.3s,
+      transform 0.2s var(--ease);
+  }
+  .icon :global(.lucide) {
+    width: 20px;
+    height: 20px;
+  }
+
+  .label {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: var(--font-display);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+  }
+
+  .tab[aria-current] {
+    color: var(--text);
+  }
+  .tab[aria-current] .icon {
+    background: var(--volt);
+    color: var(--volt-ink);
+  }
+  .tab[aria-current] .label {
+    color: var(--volt-fg);
+    font-weight: 600;
+  }
+}
+
+@media (max-width: 340px) {
+  .icon {
+    width: 40px;
+  }
+  .label {
+    font-size: 10px;
+  }
+}
