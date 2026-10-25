@@ -78,60 +78,12 @@
   height: 15px;
   color: var(--text-3);
 }
-.actions {
+.pdfCompact {
   display: grid;
-  justify-items: start;
-  gap: 12px;
-}
-
-/* PDF download choice */
-.pdf {
-  display: grid;
-  gap: 10px;
-  padding: 16px 18px;
-  border-radius: var(--r-lg);
-  background: var(--glass);
-  border: 1px solid var(--line);
-}
-.pdfLabel {
-  font-family: var(--font-display);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--text-3);
-}
-.pdfButtons {
-  display: flex;
-  flex-wrap: wrap;
   gap: 8px;
-}
-.pdfHint {
-  max-width: 36ch;
-  font-size: 13px;
-  color: var(--text-3);
-}
-.pdfCompact .pdfButtons {
-  display: grid;
 }
 .pdfCompact :global(.btn) {
   justify-content: flex-start;
-}
-.emailLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 4px 2px;
-  font-size: 14.5px;
-  color: var(--ice-fg);
-  transition: color 0.2s;
-}
-.emailLink:hover {
-  color: var(--volt-fg);
-}
-.emailLink :global(.lucide) {
-  width: 16px;
-  height: 16px;
 }
 .printOnly {
   display: none;
@@ -200,7 +152,7 @@
   gap: 2px;
   border-left: 1px solid var(--line);
 }
-.toc a {
+.toc ol a {
   position: relative;
   display: flex;
   align-items: center;
@@ -215,10 +167,10 @@
     border-color 0.2s,
     background-color 0.2s;
 }
-.toc a:hover {
+.toc ol a:hover {
   color: var(--text);
 }
-.toc a[aria-current] {
+.toc ol a[aria-current] {
   border-left-color: var(--volt-fg);
   background: linear-gradient(90deg, rgba(var(--volt-rgb), 0.08), transparent);
   color: var(--text);
@@ -230,7 +182,7 @@
   font-variant-numeric: tabular-nums;
   color: var(--text-3);
 }
-.toc a[aria-current] .tocNum {
+.toc ol a[aria-current] .tocNum {
   color: var(--volt-fg);
 }
 .tocPrint {
@@ -275,30 +227,31 @@
   color: var(--text-2);
 }
 
-/* Skills: label column + items */
+/* Skills: tech-stack cards, as in the portfolio's Experience section */
 .skills {
-  margin: 0;
   display: grid;
-  border-top: 1px solid var(--line);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
 }
-.skills > div {
-  display: grid;
-  grid-template-columns: 180px minmax(0, 1fr);
-  gap: 8px 20px;
-  padding-block: 14px;
-  border-bottom: 1px solid var(--line);
+.skillCard {
+  padding: 22px;
 }
-.skills dt {
-  padding-top: 5px;
+.skillHead {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-family: var(--font-display);
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
   color: var(--text);
 }
-.skills dd {
-  margin: 0;
+.skillHead :global(.lucide) {
+  width: 18px;
+  height: 18px;
+  color: var(--volt-fg);
 }
 .items {
+  margin-top: 14px;
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
@@ -539,7 +492,7 @@
   .toc ol::-webkit-scrollbar {
     display: none;
   }
-  .toc a {
+  .toc ol a {
     margin: 0;
     padding: 7px 12px;
     border: 1px solid var(--line);
@@ -547,12 +500,12 @@
     white-space: nowrap;
     font-size: 13.5px;
   }
-  .toc a[aria-current] {
+  .toc ol a[aria-current] {
     border-color: var(--volt);
     background: var(--volt);
     color: var(--volt-ink);
   }
-  .toc a[aria-current] .tocNum {
+  .toc ol a[aria-current] .tocNum {
     color: inherit;
     opacity: 0.6;
   }
@@ -568,19 +521,13 @@
   .projects {
     grid-template-columns: minmax(0, 1fr);
   }
-  .skills > div {
+  .skills {
     grid-template-columns: minmax(0, 1fr);
   }
-  .skills dt {
-    padding-top: 0;
+  .skillCard {
+    padding: 20px;
   }
-  .actions,
-  .pdf {
-    width: 100%;
-  }
-  .pdfButtons :global(.btn) {
-    flex: 1 1 auto;
-  }
+
 }
 
 /* ==========================================================================
@@ -598,7 +545,6 @@
     display: inline;
   }
   .back,
-  .actions,
   .highlights,
   .toc,
   .sectionNum,
@@ -671,28 +617,33 @@
 
   /* Skills: "Label: a, b, c" lines */
   .skills {
-    border: 0;
+    display: block;
   }
-  .skills > div {
+  .skillCard {
     display: block;
     padding: 1pt 0;
     border: 0;
+    background: none;
     font-size: 9pt;
     line-height: 1.4;
   }
-  .skills dt {
+  .skillCard::before,
+  .skillCard::after {
+    display: none;
+  }
+  .skillHead {
     display: inline;
-    padding: 0;
+    font-family: var(--font-body);
     font-size: inherit;
     color: #111;
   }
-  .skills dt::after {
+  .skillHead::after {
     content: ": ";
   }
-  .skills dd,
   .items,
   .items li {
     display: inline;
+    margin: 0;
   }
   .items li {
     padding: 0;

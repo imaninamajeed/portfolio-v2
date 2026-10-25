@@ -638,24 +638,6 @@ ol {
   body > :not(main) {
     display: none !important;
   }
-  /* Designed résumé: full-bleed dark A4, only the themed sheet prints */
-  @page themed {
-    size: A4;
-    margin: 0;
-  }
-  html[data-print-style="themed"],
-  html[data-print-style="themed"] body {
-    background: #06070a !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-  html[data-print-style="themed"] main {
-    padding: 0 !important;
-    max-width: none !important;
-  }
-  html[data-print-style="themed"] main > :not([data-themed-sheet]) {
-    display: none !important;
-  }
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;

@@ -2,15 +2,14 @@ import { ArrowLeft, ArrowUpRight, Mail, MapPin } from "lucide-react";
 import Link from "next/link";
 import type { ComponentType, ReactNode } from "react";
 
-import { Github, Linkedin } from "@/components/portfolio/icon";
+import { Github, Icon, Linkedin } from "@/components/portfolio/icon";
 import { caseHref, pad } from "@/data/portfolio";
 import { RESUME, RESUME_SECTIONS, type ResumeProjectStatus } from "@/data/resume";
 import { cssVars, reveal } from "@/lib/dom";
 
-import { PdfOptions } from "./pdf-options";
 import { PrintPhone } from "./print-phone";
+import { ResumeDownloads } from "./resume-downloads";
 import { ResumeToc } from "./resume-toc";
-import { ThemedPrint } from "./themed-print";
 
 import styles from "./resume.module.css";
 
@@ -97,12 +96,6 @@ export function Resume() {
             </ul>
             </div>
           </div>
-          <div className={styles.actions}>
-            <PdfOptions />
-            <a className={styles.emailLink} href={`mailto:${RESUME.email}`}>
-              <Mail aria-hidden="true" /> Email me instead
-            </a>
-          </div>
         </div>
 
         <ul className={styles.highlights} aria-label="At a glance">
@@ -115,6 +108,8 @@ export function Resume() {
         </ul>
       </header>
 
+      <ResumeDownloads />
+
       <div className={styles.layout}>
         <ResumeToc sections={RESUME_SECTIONS} />
 
@@ -124,16 +119,18 @@ export function Resume() {
           </Section>
 
           <Section id="cv-skills">
-            <dl className={styles.skills}>
-              {RESUME.skills.map((g) => (
-                <div key={g.title}>
-                  <dt>{g.title}</dt>
-                  <dd>
-                    <Items items={g.items} />
-                  </dd>
+            {/* Same presentation as the portfolio's tech stack cards */}
+            <div className={styles.skills}>
+              {RESUME.skills.map((g, i) => (
+                <div key={g.title} className={`glass ${styles.skillCard}`} {...reveal((i % 2) * 0.06)}>
+                  <p className={styles.skillHead}>
+                    <Icon name={g.icon} />
+                    {g.title}
+                  </p>
+                  <Items items={g.items} />
                 </div>
               ))}
-            </dl>
+            </div>
           </Section>
 
           <Section id="cv-experience">
@@ -246,9 +243,6 @@ export function Resume() {
           </Section>
         </div>
       </div>
-
-      {/* Designed PDF: rendered only while printing in that style */}
-      <ThemedPrint />
     </main>
   );
 }

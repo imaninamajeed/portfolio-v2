@@ -67,7 +67,7 @@ export function ResumeToc({ sections }: { sections: readonly Section[] }) {
       </ol>
       <div className={styles.tocPrint}>
         <p className={styles.tocTitle}>Download PDF</p>
-        <PdfOptions compact />
+        <PdfOptions />
       </div>
     </nav>
   );

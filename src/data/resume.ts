@@ -4,7 +4,7 @@
  * verified numbers only, prototypes labelled as prototypes.
  */
 
-import type { CaseId } from "./portfolio";
+import type { CaseId, IconName } from "./portfolio";
 
 export type ResumeProjectStatus = "Live demo" | "Prototype" | "In development" | "Concept";
 
@@ -14,6 +14,12 @@ export interface ResumeRole {
   place: string;
   dates: string;
   bullets: string[];
+}
+
+export interface ResumeSkillGroup {
+  icon: IconName;
+  title: string;
+  items: string[];
 }
 
 export interface ResumeProject {
@@ -56,10 +62,12 @@ export const RESUME = {
 
   skills: [
     {
+      icon: "layout-template",
       title: "Frontend",
       items: ["React", "Next.js (App Router)", "TypeScript", "JavaScript", "HTML5", "CSS3", "Tailwind CSS", "shadcn/ui", "Material UI", "Bootstrap", "React Admin"],
     },
     {
+      icon: "pen-tool",
       title: "Product & UI/UX",
       items: [
         "Requirements analysis",
@@ -76,22 +84,26 @@ export const RESUME = {
       ],
     },
     {
+      icon: "chart-line",
       title: "Data & visualisation",
       items: ["SQL", "PostgreSQL", "MySQL", "Grafana", "Recharts", "Chart.js", "Power BI", "KPI reporting", "Geospatial views"],
     },
     {
+      icon: "server",
       title: "Backend & integration",
       items: ["REST APIs", "FastAPI", "Node.js", "Express.js", "Axios", "MQTT", "JWT authentication", "Postman"],
     },
     {
+      icon: "git-branch",
       title: "Tools & delivery",
       items: ["Git", "GitHub", "GitLab", "Docker", "Docker Compose", "Traefik", "pnpm", "Turborepo", "Vercel", "Netlify", "Linux/Ubuntu", "API testing", "QA", "Technical writing"],
     },
     {
+      icon: "route",
       title: "Domain",
       items: ["Intelligent Transportation Systems (ITS)", "ANPR/LPR", "Computer-vision interfaces", "Road asset monitoring", "CMMS/EAM"],
     },
-  ],
+  ] satisfies ResumeSkillGroup[],
 
   experience: [
     {
@@ -243,3 +255,14 @@ export const RESUME_SECTIONS = [
   { id: "cv-certifications", label: "Certifications" },
   { id: "cv-additional", label: "Additional" },
 ] as const;
+
+/** Downloadable PDFs, generated at build time by app/resume/[file]/route.ts. */
+export const RESUME_PDFS = {
+  /** ATS-friendly: plain single column. */
+  ats: { file: "Imanina-Majeed-Resume.pdf" },
+  /** Portfolio style, in the site's dark or light theme. */
+  dark: { file: "Imanina-Majeed-Resume-Dark.pdf" },
+  light: { file: "Imanina-Majeed-Resume-Light.pdf" },
+} as const;
+
+export const resumePdfHref = (key: keyof typeof RESUME_PDFS) => `/resume/${RESUME_PDFS[key].file}`;

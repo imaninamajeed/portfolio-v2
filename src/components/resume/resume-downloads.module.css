@@ -1,0 +1,247 @@
+.section {
+  margin-top: clamp(28px, 4vw, 44px);
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 20px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.title {
+  font-size: clamp(1.2rem, 1.05rem + 0.5vw, 1.45rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.sub {
+  font-size: 14px;
+  color: var(--text-3);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+
+/* ---------- Cards ---------- */
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 18px;
+  border-radius: var(--r-lg);
+  background: var(--glass);
+  border: 1px solid var(--line);
+  transition:
+    border-color 0.25s,
+    background-color 0.25s,
+    transform 0.35s var(--ease);
+}
+a.card:hover {
+  border-color: rgba(var(--volt-rgb), 0.55);
+  background: rgba(var(--volt-rgb), 0.04);
+  transform: translateY(-3px);
+}
+a.card:focus-visible {
+  outline-offset: 4px;
+  border-radius: var(--r-lg);
+}
+.primary {
+  border-color: rgba(var(--volt-rgb), 0.35);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+.cardTitle {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--text);
+}
+.tag {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--volt);
+  color: var(--volt-ink);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+.text {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+.action {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: auto;
+  padding-top: 8px;
+  font-family: var(--font-display);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--volt-fg);
+}
+.action :global(.lucide) {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.3s var(--ease);
+}
+a.card:hover .action :global(.lucide) {
+  transform: translate(2px, -2px);
+}
+
+/* ---------- Mini page previews ---------- */
+.page {
+  --p-bg: #fff;
+  --p-ink: #1b1e24;
+  --p-mute: #cfd2cb;
+  --p-accent: #2c4a00;
+  --p-panel: transparent;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 64px;
+  aspect-ratio: 210 / 297;
+  padding: 8px 7px;
+  border-radius: 4px;
+  background: var(--p-bg);
+  box-shadow:
+    0 0 0 1px var(--line-2),
+    0 10px 24px -12px rgba(0, 0, 0, 0.6);
+  transition: transform 0.35s var(--ease);
+}
+a.card:hover .page {
+  transform: rotate(-3deg) scale(1.04);
+}
+.pName {
+  width: 70%;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--p-ink);
+}
+.pTitle {
+  width: 50%;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--p-accent);
+}
+.pRule {
+  height: 1px;
+  margin-block: 2px;
+  background: var(--p-mute);
+}
+.pBody {
+  display: flex;
+  gap: 3px;
+  flex: 1;
+}
+.pCol {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+}
+.pCol span {
+  height: 2px;
+  border-radius: 1px;
+  background: var(--p-mute);
+}
+.pCol span:nth-child(odd) {
+  width: 85%;
+}
+.pSide {
+  width: 34%;
+  border-radius: 2px;
+  background: var(--p-panel);
+}
+
+.pageAts .pSide {
+  display: none;
+}
+.pageDark {
+  --p-bg: #06070a;
+  --p-ink: #eef1f5;
+  --p-mute: #2a2e37;
+  --p-accent: #c8ff3d;
+  --p-panel: #14171d;
+}
+.pageLight {
+  --p-bg: #f3f4ef;
+  --p-ink: #0e1014;
+  --p-mute: #d4d7cf;
+  --p-accent: #4c7a00;
+  --p-panel: #ffffff;
+}
+
+/* ---------- Contact card ---------- */
+.contact {
+  background: linear-gradient(180deg, var(--card-1), var(--card-2));
+  border-color: var(--line-2);
+}
+.contactIcon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(var(--ice-rgb), 0.08);
+  border: 1px solid rgba(var(--ice-rgb), 0.25);
+  color: var(--ice-fg);
+}
+.contactIcon :global(.lucide) {
+  width: 20px;
+  height: 20px;
+}
+.contactActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1080px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  /* Phone: preview beside the text keeps each option compact */
+  a.card {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .page {
+    width: 52px;
+    flex: none;
+  }
+  .contactActions :global(.btn) {
+    flex: 1 1 auto;
+  }
+}
+
+@media print {
+  .section {
+    display: none;
+  }
+}

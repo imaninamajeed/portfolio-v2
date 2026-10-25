@@ -5,10 +5,8 @@ import { flushSync } from "react-dom";
 
 import { RESUME } from "@/data/resume";
 
-import { isThemedPrint } from "./print-style";
-
 /**
- * Renders the phone number only while the page is being printed (Save as PDF / Ctrl+P),
+ * Renders the phone number only while the page is being printed (Ctrl+P),
  * so it lands in the PDF but is never in the page's HTML for scrapers. The number is read
  * here (client module) rather than passed as a prop, which would serialise it into the HTML.
  */
@@ -17,10 +15,7 @@ export function PrintPhone({ className }: { className?: string }) {
 
   useEffect(() => {
     // flushSync: the DOM must update before the browser lays out the print copy.
-    // The designed PDF renders its own contact block
-    const before = () => {
-      if (!isThemedPrint()) flushSync(() => setPrinting(true));
-    };
+    const before = () => flushSync(() => setPrinting(true));
     const after = () => setPrinting(false);
     window.addEventListener("beforeprint", before);
     window.addEventListener("afterprint", after);
