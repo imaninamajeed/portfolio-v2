@@ -609,6 +609,62 @@ ol {
   }
 }
 
+/* ---------- Print ---------- */
+/* Only the page content prints (the résumé page is designed for it), always in light colours. */
+@media print {
+  :root,
+  :root[data-theme] {
+    --bg: #ffffff;
+    --text: #0e1014;
+    --text-2: #333a44;
+    --text-3: #5b616b;
+    --line: rgba(12, 14, 18, 0.12);
+    --line-2: rgba(12, 14, 18, 0.22);
+    --glass: transparent;
+    --pill: transparent;
+    --volt-fg: #3f6600;
+    --ice-fg: #0a5f7c;
+    --violet: #6d55e0;
+    color-scheme: light;
+  }
+  @page {
+    size: A4;
+    margin: 12mm 13mm 13mm;
+  }
+  body {
+    background: #fff;
+    padding: 0 !important;
+  }
+  body > :not(main) {
+    display: none !important;
+  }
+  /* Designed résumé: full-bleed dark A4, only the themed sheet prints */
+  @page themed {
+    size: A4;
+    margin: 0;
+  }
+  html[data-print-style="themed"],
+  html[data-print-style="themed"] body {
+    background: #06070a !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  html[data-print-style="themed"] main {
+    padding: 0 !important;
+    max-width: none !important;
+  }
+  html[data-print-style="themed"] main > :not([data-themed-sheet]) {
+    display: none !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  a {
+    color: inherit;
+  }
+}
+
 /* View-transition crossfade when switching theme */
 ::view-transition-old(root),
 ::view-transition-new(root) {

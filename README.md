@@ -20,10 +20,12 @@ src/
 ├── app/
 │   ├── layout.tsx               # Fonts, theme init script, metadata, shell
 │   ├── page.tsx                 # Hero → Stats → Roles → Work → Archive → Experience (timeline + skills radar) → Contact
+│   ├── resume/page.tsx          # Web résumé (prints to a clean A4 PDF)
 │   ├── globals.css              # Design tokens + shared primitives
 │   ├── manifest.ts, icon.svg, apple-icon.png, favicon.ico, opengraph-image.tsx
 ├── components/portfolio/        # One file (+ .module.css) per section; "use client" only where needed
-├── data/portfolio.ts            # The only file to edit for content
+├── data/portfolio.ts            # Portfolio content
+├── data/resume.ts               # Résumé content
 └── lib/                         # theme.ts (theme storage), dom.ts (helpers)
 public/
 ├── icons/                       # PWA icons

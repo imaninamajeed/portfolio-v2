@@ -22,7 +22,7 @@ export function MobileTabBar() {
       <ul>
         {TABS.map(({ href, label, Icon }) => (
           <li key={href}>
-            <a href={href} className={styles.tab} aria-current={active === href ? "location" : undefined}>
+            <a href={`/${href}`} className={styles.tab} aria-current={active === href ? "location" : undefined}>
               <span className={styles.icon}>
                 <Icon />
               </span>

@@ -44,7 +44,7 @@ export function Hero() {
           <LinkButton href="#work" magnetic>
             View projects <ArrowDownRight />
           </LinkButton>
-          <LinkButton href={SITE.resume} variant="ghost" magnetic external>
+          <LinkButton href={SITE.resume} variant="ghost" magnetic>
             <FileText /> Résumé
           </LinkButton>
         </div>

@@ -27,7 +27,7 @@ export function Contact() {
           <LinkButton href={SITE.github} variant="ghost" size="lg" magnetic external>
             <Github /> GitHub
           </LinkButton>
-          <LinkButton href={SITE.resume} variant="ghost" size="lg" magnetic external>
+          <LinkButton href={SITE.resume} variant="ghost" size="lg" magnetic>
             <FileText /> Résumé
           </LinkButton>
         </div>

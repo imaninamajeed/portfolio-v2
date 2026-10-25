@@ -2,6 +2,7 @@
 
 import clsx from "clsx";
 import { ArrowUpRight, FileText } from "lucide-react";
+import Link from "next/link";
 import { useLayoutEffect, useRef, useSyncExternalStore } from "react";
 
 import { NAV, SITE } from "@/data/portfolio";
@@ -40,7 +41,7 @@ export function Header() {
     const pill = indicator.current;
     if (!ul || !pill) return;
     const place = () => {
-      const link = active ? ul.querySelector<HTMLElement>(`a[href="${active}"]`) : null;
+      const link = active ? ul.querySelector<HTMLElement>(`a[href="/${active}"]`) : null;
       if (!link || window.innerWidth <= MOBILE) {
         pill.style.opacity = "0";
         return;
@@ -61,12 +62,12 @@ export function Header() {
     <header className={clsx(styles.header, scrolled && styles.scrolled)}>
       <div className="wrap">
         <div className={styles.bar}>
-          <a className={styles.logo} href="#top" aria-label={`${SITE.name}, back to top`}>
+          <Link className={styles.logo} href="/" aria-label={`${SITE.name}, home`}>
             <span className={styles.mark}>IM</span>
             <span className={styles.logoText}>
               Imanina<span>.dev</span>
             </span>
-          </a>
+          </Link>
 
           <nav className={styles.nav} aria-label="Primary">
             <ul ref={list}>
@@ -75,7 +76,7 @@ export function Header() {
                 const Icon = SECTION_ICONS[href];
                 return (
                   <li key={href}>
-                    <a className={styles.link} href={href} aria-current={active === href ? "location" : undefined}>
+                    <a className={styles.link} href={`/${href}`} aria-current={active === href ? "location" : undefined}>
                       <Icon />
                       {label}
                     </a>
@@ -86,7 +87,7 @@ export function Header() {
           </nav>
 
           <div className={styles.end}>
-            <LinkButton href="#contact" size="sm" magnetic className={styles.cta}>
+            <LinkButton href="/#contact" size="sm" magnetic className={styles.cta}>
               Let’s talk <ArrowUpRight />
             </LinkButton>
             {/* Tools: local time, résumé, theme */}
@@ -95,10 +96,8 @@ export function Header() {
               <a
                 className="icon-btn"
                 href={SITE.resume}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Résumé (PDF, opens in a new tab)"
-                title="Résumé (PDF)"
+                aria-label="Résumé"
+                title="Résumé"
               >
                 <FileText />
               </a>

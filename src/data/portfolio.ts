@@ -141,8 +141,8 @@ export const SITE = {
   location: "Subang Jaya, Malaysia",
   timeZone: "Asia/Kuala_Lumpur",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://imanina.vercel.app",
-  /** Résumé PDF in `public/resume/`. */
-  resume: "/resume/Imanina-Majeed-Resume.pdf",
+  /** Résumé page (web version, prints to PDF). The original PDF is still in `public/resume/`. */
+  resume: "/resume",
   linkedin: "https://linkedin.com/in/imaninamajeed",
   github: "https://github.com/imaninamajeed",
 } as const;

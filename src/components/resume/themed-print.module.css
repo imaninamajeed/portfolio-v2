@@ -1,0 +1,342 @@
+/* ==========================================================================
+   "Designed" résumé PDF: the portfolio's dark theme on A4 (print only).
+   Fixed palette (the dark tokens), so it is independent of the site theme.
+   ========================================================================== */
+.sheet {
+  --bg: #06070a;
+  --panel: rgba(255, 255, 255, 0.035);
+  --line: rgba(255, 255, 255, 0.09);
+  --line-2: rgba(255, 255, 255, 0.16);
+  --text: #eef1f5;
+  --text-2: #b4bac6;
+  --text-3: #858c9b;
+  --volt: #c8ff3d;
+  --ice: #7ce7ff;
+
+  page: themed; /* full-bleed A4, see @page themed in globals.css */
+  padding: 13mm 13mm 12mm;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone; /* the padding repeats on every printed page */
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 8.8pt;
+  line-height: 1.5;
+}
+.sheet,
+.sheet * {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.sheet :global(.lucide) {
+  width: 9pt;
+  height: 9pt;
+  stroke-width: 1.75;
+  color: var(--ice);
+}
+
+/* ---------- Header ---------- */
+.head {
+  display: flex;
+  align-items: center;
+  gap: 5mm;
+}
+.mark {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 15mm;
+  height: 15mm;
+  background: var(--volt);
+  color: #0a0d03;
+  font-family: var(--font-display);
+  font-size: 13pt;
+  font-weight: 700;
+  clip-path: polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%);
+}
+.name {
+  font-family: var(--font-display);
+  font-size: 23pt;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  color: var(--text);
+}
+.title {
+  margin-top: 1.5mm;
+  font-family: var(--font-display);
+  font-size: 11pt;
+  font-weight: 600;
+  color: var(--volt);
+}
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2mm 6mm;
+  margin-top: 5mm;
+  padding-bottom: 5mm;
+  border-bottom: 1px solid var(--line-2);
+  font-size: 8.3pt;
+  color: var(--text-2);
+}
+.contact li {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.8mm;
+}
+
+/* Section headings: kicker style with a hairline */
+.h2 {
+  display: flex;
+  align-items: center;
+  gap: 3mm;
+  margin-bottom: 3.5mm;
+  font-family: var(--font-display);
+  font-size: 8.5pt;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--volt);
+}
+.h2::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+/* ---------- Page 1 body ---------- */
+.body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 64mm;
+  gap: 8mm;
+  margin-top: 7mm;
+  align-items: start;
+}
+
+.side {
+  grid-column: 2;
+  grid-row: 1;
+  display: grid;
+  gap: 6mm;
+  padding: 5.5mm 5mm;
+  border-radius: 4mm;
+  background: var(--panel);
+  border: 1px solid var(--line);
+}
+.skillGroup + .skillGroup {
+  margin-top: 3mm;
+}
+.skillGroup h3 {
+  margin-bottom: 1.6mm;
+  font-family: var(--font-display);
+  font-size: 7.6pt;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+.pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.1mm 1.2mm;
+}
+.pills li {
+  padding: 0.25mm 2mm;
+  border-radius: 999px;
+  border: 1px solid var(--line-2);
+  font-size: 7.2pt;
+  line-height: 1.45;
+  color: var(--text-2);
+}
+
+.main {
+  grid-column: 1;
+  grid-row: 1;
+  display: grid;
+  gap: 7mm;
+}
+.summary {
+  font-size: 9.2pt;
+  line-height: 1.6;
+  color: var(--text-2);
+}
+
+/* Experience: volt timeline rail */
+.timeline {
+  display: grid;
+  gap: 5.5mm;
+  padding-left: 5mm;
+  border-left: 1px solid var(--line-2);
+}
+.role {
+  position: relative;
+}
+.role::before {
+  content: "";
+  position: absolute;
+  left: calc(-5mm - 4.5px);
+  top: 1.2mm;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1.5px solid var(--volt);
+}
+.role:first-child::before {
+  background: var(--volt);
+}
+.roleHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 4mm;
+}
+.roleHead h3 {
+  font-family: var(--font-display);
+  font-size: 10.5pt;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text);
+}
+.date {
+  flex: none;
+  font-family: var(--font-display);
+  font-size: 8pt;
+  color: var(--text-3);
+}
+.org {
+  margin-top: 0.8mm;
+  font-size: 8.5pt;
+  color: var(--volt);
+}
+.org span {
+  color: var(--text-3);
+}
+
+.bullets {
+  display: grid;
+  gap: 1.4mm;
+  margin-top: 2.5mm;
+}
+.bullets li {
+  position: relative;
+  padding-left: 4mm;
+  font-size: 8.6pt;
+  line-height: 1.5;
+  color: var(--text-2);
+}
+.bullets li::before {
+  content: "";
+  position: absolute;
+  left: 0.6mm;
+  top: 0.62em;
+  width: 4.5px;
+  height: 4.5px;
+  border-radius: 1px;
+  background: var(--volt);
+  transform: rotate(45deg);
+}
+
+/* ---------- Page 2: project cards ---------- */
+.projectsPage {
+  break-before: page;
+}
+.projects {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4mm;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: 4mm 4.5mm;
+  border-radius: 3.5mm;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  break-inside: avoid;
+}
+.cardTitle {
+  font-family: var(--font-display);
+  font-size: 10pt;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text);
+}
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.4mm;
+  margin-left: 2.5mm;
+  padding-left: 2.5mm;
+  border-left: 1px solid var(--line-2);
+  font-size: 7.6pt;
+  color: var(--text-2);
+  white-space: nowrap;
+}
+.status i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--c);
+}
+.cardSub {
+  margin-top: 0.8mm;
+  font-size: 8pt;
+  color: var(--ice);
+}
+.card .bullets {
+  gap: 1mm;
+  margin-top: 2mm;
+}
+.card .bullets li {
+  font-size: 8pt;
+  line-height: 1.45;
+}
+.tech {
+  margin-top: auto;
+  padding-top: 2.5mm;
+  font-family: var(--font-display);
+  font-size: 7.4pt;
+  letter-spacing: 0.02em;
+  color: var(--text-3);
+}
+.cardLink {
+  margin-top: 1mm;
+  font-size: 7.8pt;
+  color: var(--ice);
+}
+/* Education / certifications / languages strip */
+.strip {
+  display: grid;
+  grid-template-columns: 1.15fr 1.25fr 0.8fr;
+  gap: 7mm;
+  margin-top: 7mm;
+  padding-top: 6mm;
+  border-top: 1px solid var(--line-2);
+  break-inside: avoid;
+}
+.entry + .entry {
+  margin-top: 3mm;
+}
+.entry h3 {
+  font-family: var(--font-display);
+  font-size: 8.8pt;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--text);
+}
+.entryOrg {
+  margin-top: 0.6mm;
+  font-size: 8pt;
+  color: var(--volt);
+}
+.entryMeta {
+  margin-top: 0.6mm;
+  font-size: 7.8pt;
+  line-height: 1.45;
+  color: var(--text-2);
+}
+.h2Spaced {
+  margin-top: 5mm;
+}

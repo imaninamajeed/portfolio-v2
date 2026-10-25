@@ -1,4 +1,5 @@
 import { ArrowUp, ArrowUpRight, FileText, MapPin } from "lucide-react";
+import Link from "next/link";
 
 import { NAV, SITE } from "@/data/portfolio";
 
@@ -10,7 +11,7 @@ import styles from "./footer.module.css";
 const ELSEWHERE = [
   { label: "LinkedIn", href: SITE.linkedin, Icon: Linkedin },
   { label: "GitHub", href: SITE.github, Icon: Github },
-  { label: "Résumé (PDF)", href: SITE.resume, Icon: FileText },
+  { label: "Résumé", href: SITE.resume, Icon: FileText },
 ];
 
 export function Footer() {
@@ -18,12 +19,12 @@ export function Footer() {
     <footer className={styles.footer}>
       <div className={`wrap ${styles.grid}`}>
         <div className={styles.brand}>
-          <a className={styles.logo} href="#top" aria-label={`${SITE.name}, back to top`}>
+          <Link className={styles.logo} href="/" aria-label={`${SITE.name}, home`}>
             <span className={styles.mark}>IM</span>
             <span className={styles.logoText}>
               Imanina<span>.dev</span>
             </span>
-          </a>
+          </Link>
           <p className={styles.bio}>Frontend and product engineer building clear interfaces for complex data and workflows.</p>
           <p className={styles.status}>
             <span className={styles.pulse} aria-hidden="true" />
@@ -38,7 +39,7 @@ export function Footer() {
           <ul>
             {[...NAV, { href: "#contact", label: "Contact" }].map(({ href, label }) => (
               <li key={href}>
-                <a href={href}>{label}</a>
+                <a href={`/${href}`}>{label}</a>
               </li>
             ))}
           </ul>
@@ -49,7 +50,7 @@ export function Footer() {
           <ul>
             {ELSEWHERE.map(({ label, href, Icon }) => (
               <li key={label}>
-                <a href={href} target="_blank" rel="noopener noreferrer">
+                <a href={href} {...(href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : null)}>
                   <Icon /> {label} <ArrowUpRight className={styles.ext} />
                 </a>
               </li>
