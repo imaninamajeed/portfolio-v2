@@ -1,6 +1,7 @@
 import {
   Boxes,
   Briefcase,
+  Cctv,
   ChartColumn,
   ChartLine,
   CodeXml,
@@ -55,6 +56,7 @@ const ICONS: Record<IconName, ComponentType<IconProps>> = {
   "chart-column": ChartColumn,
   "train-front": TrainFront,
   "scan-eye": ScanEye,
+  cctv: Cctv,
   "layout-template": LayoutTemplate,
   "chart-line": ChartLine,
   server: Server,

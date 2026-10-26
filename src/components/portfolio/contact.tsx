@@ -1,4 +1,4 @@
-import { FileText } from "lucide-react";
+import { FileText, Mail } from "lucide-react";
 
 import { SITE } from "@/data/portfolio";
 import { reveal } from "@/lib/dom";
@@ -21,8 +21,11 @@ export function Contact() {
         </h2>
         <p className={styles.sub}>Hiring for frontend, product or UI/UX engineering? I’d love to hear about it.</p>
         <div className={styles.actions}>
-          <LinkButton href={SITE.linkedin} size="lg" magnetic external>
-            <Linkedin /> Connect on LinkedIn
+          <LinkButton href={`mailto:${SITE.email}`} size="lg" magnetic>
+            <Mail /> {SITE.email}
+          </LinkButton>
+          <LinkButton href={SITE.linkedin} variant="ghost" size="lg" magnetic external>
+            <Linkedin /> LinkedIn
           </LinkButton>
           <LinkButton href={SITE.github} variant="ghost" size="lg" magnetic external>
             <Github /> GitHub

@@ -116,3 +116,239 @@
     stroke-dashoffset: -24;
   }
 }
+
+/* ---------- ARM VINO sketch: a labelled config page over a camera scene. Unlike the other
+   sketches (always a dark screen) it follows the theme: night scene in dark, day scene in light. */
+.anpr {
+  --a-bg: var(--screen);
+  --a-grid: rgba(255, 255, 255, 0.045);
+  --a-panel: rgba(255, 255, 255, 0.03);
+  --a-panel-line: rgba(255, 255, 255, 0.09);
+  --a-line: rgba(255, 255, 255, 0.14);
+  --a-title: rgba(255, 255, 255, 0.92);
+  --a-strong: rgba(255, 255, 255, 0.9);
+  --a-label: rgba(255, 255, 255, 0.62);
+  --a-dim: rgba(255, 255, 255, 0.42);
+  --a-accent: var(--volt);
+  --a-data: var(--ice);
+  --a-field: rgba(255, 255, 255, 0.06);
+  --a-field-line: rgba(255, 255, 255, 0.1);
+  --a-knob: #eef1f5;
+  --a-knob-line: transparent;
+  --a-chip: rgba(12, 15, 21, 0.92);
+  --a-zone: 0.13;
+  --a-sky: #1c2541;
+  --a-city: #28324f;
+  --a-window: #fff3cf;
+  --a-ground: #131925;
+  --a-road: #222a3a;
+  --a-lane: rgba(255, 255, 255, 0.28);
+  --a-car: #3b4762;
+  --a-cabin: #2c3650;
+  --a-plate: #eef1f5;
+  font-family: var(--font-body);
+}
+:global(:root[data-theme="light"]) .anpr {
+  --a-bg: #f6f7f2;
+  --a-grid: rgba(12, 14, 18, 0.05);
+  --a-panel: #ffffff;
+  --a-panel-line: rgba(12, 14, 18, 0.1);
+  --a-line: rgba(12, 14, 18, 0.12);
+  --a-title: #0e1014;
+  --a-strong: #0e1014;
+  --a-label: #4a505b;
+  --a-dim: #7c8392;
+  --a-accent: var(--volt-fg);
+  --a-data: var(--ice-fg);
+  --a-field: #f6f7f2;
+  --a-field-line: rgba(12, 14, 18, 0.12);
+  --a-knob: #ffffff;
+  --a-knob-line: rgba(12, 14, 18, 0.25);
+  --a-chip: #ffffff;
+  --a-zone: 0.3;
+  --a-sky: #cfe5f3;
+  --a-city: #aebdd0;
+  --a-window: #f4fbff;
+  --a-ground: #dfe3e6;
+  --a-road: #c4cad2;
+  --a-lane: rgba(255, 255, 255, 0.95);
+  --a-car: #3f4b63;
+  --a-cabin: #323c52;
+  --a-plate: #ffffff;
+}
+.aBg {
+  fill: var(--a-bg);
+}
+.aGrid {
+  stroke: var(--a-grid);
+}
+.aPanel {
+  fill: var(--a-panel);
+  stroke: var(--a-panel-line);
+}
+.aLine {
+  stroke: var(--a-line);
+  fill: none;
+}
+.title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  fill: var(--a-title);
+}
+.strong {
+  fill: var(--a-strong);
+}
+.label {
+  fill: var(--a-label);
+}
+.dim {
+  fill: var(--a-dim);
+}
+/* Camera on-screen display: dark over the video in both themes */
+.osd {
+  fill: rgba(255, 255, 255, 0.92);
+}
+.osdBg {
+  fill: rgba(12, 15, 21, 0.62);
+}
+.accent {
+  fill: var(--a-accent);
+}
+.accentS {
+  stroke: var(--a-accent);
+  fill: none;
+}
+.data {
+  fill: var(--a-data);
+}
+.dataS {
+  stroke: var(--a-data);
+  fill: none;
+}
+.zone {
+  fill: var(--volt);
+  opacity: var(--a-zone);
+}
+.mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  white-space: pre;
+}
+.ink {
+  fill: var(--volt-ink);
+  font-weight: 600;
+}
+.inkS {
+  stroke: var(--screen);
+  fill: none;
+}
+.iconS {
+  stroke: var(--a-label);
+  fill: none;
+}
+.field {
+  fill: var(--a-field);
+  stroke: var(--a-field-line);
+}
+.knob {
+  fill: var(--a-knob);
+  stroke: var(--a-knob-line);
+}
+.chip {
+  fill: var(--a-chip);
+  stroke: var(--a-accent);
+  stroke-opacity: 0.6;
+}
+.cursor {
+  fill: #fff;
+  stroke: var(--screen);
+  stroke-width: 0.8;
+}
+.rec {
+  fill: #ff5f57;
+}
+.tyre {
+  fill: var(--screen);
+}
+.shade {
+  fill: #000;
+  opacity: 0.3;
+}
+.sky {
+  fill: var(--a-sky);
+}
+.city {
+  fill: var(--a-city);
+}
+.window {
+  fill: var(--a-window);
+}
+.ground {
+  fill: var(--a-ground);
+}
+.road {
+  fill: var(--a-road);
+}
+.lane {
+  stroke: var(--a-lane);
+  fill: none;
+}
+.car {
+  fill: var(--a-car);
+}
+.cabin {
+  fill: var(--a-cabin);
+}
+.lamp {
+  fill: #fff3cf;
+}
+.plate {
+  fill: var(--a-plate);
+}
+.plateText {
+  fill: var(--screen);
+}
+
+/* Loops: a scan line sweeps the detection zone, the plate lock glows, the read pops in, the cursor drags */
+.scan {
+  animation: skScan 2.6s ease-in-out infinite alternate;
+}
+.glow {
+  animation: skGlow 1.3s ease-in-out infinite alternate;
+}
+.read {
+  animation: skRead 5.2s ease-in-out infinite;
+}
+.drag {
+  animation: skDrag 2.6s ease-in-out infinite;
+}
+
+@keyframes skScan {
+  to {
+    transform: translateY(23px);
+  }
+}
+@keyframes skGlow {
+  from {
+    opacity: 0.45;
+  }
+}
+@keyframes skRead {
+  0%,
+  8% {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  18%,
+  88% {
+    opacity: 1;
+    transform: none;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes skDrag {
+  50% {
+    transform: translate(-1px, 3px);
+  }
+}

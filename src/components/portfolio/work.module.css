@@ -146,53 +146,18 @@
 .visual :global(img) {
   transition: transform 1.2s var(--ease);
 }
-.visual::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 55%, rgba(6, 7, 10, 0.6));
-  pointer-events: none;
-}
 .card:hover .visual :global(img) {
   transform: scale(1.04);
 }
-
-.hint {
-  position: absolute;
-  z-index: 2;
-  right: 16px;
-  bottom: 16px;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 8px 14px;
-  border-radius: 999px;
-  background: var(--volt);
-  color: var(--volt-ink);
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 13px;
-  transform: translateY(8px);
-  opacity: 0;
-  transition:
-    transform 0.4s var(--ease),
-    opacity 0.4s var(--ease);
+/* Light screenshots: a light backing so the rounded edges stay clean in both themes */
+.shot {
+  background: #fff;
+  border-color: var(--line-2);
 }
-.hint :global(.lucide) {
-  width: 16px;
-  height: 16px;
-}
-.card:hover .hint {
-  transform: none;
-  opacity: 1;
-}
-
-@media (hover: none) {
-  /* No hover on touch: keep the affordance visible */
-  .hint {
-    transform: none;
-    opacity: 1;
-  }
+/* Sketches that follow the theme draw a light scene in the light theme: match the backing */
+:global(:root[data-theme="light"]) .themed {
+  background: #f6f7f2;
+  border-color: var(--line-2);
 }
 
 @media (max-width: 1080px) {

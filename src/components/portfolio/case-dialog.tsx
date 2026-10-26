@@ -1,5 +1,6 @@
 "use client";
 
+import clsx from "clsx";
 import {
   ArrowRight,
   Check,
@@ -18,6 +19,7 @@ import { CASES, CASE_BY_ID, SITE, isCaseId, pad, type CaseId } from "@/data/port
 
 import { Icon } from "./icon";
 import { ProjectVisual } from "./project-visual";
+import { THEMED_SKETCHES } from "./sketch";
 import { LinkButton, PillList, Status } from "./ui";
 
 import styles from "./case-dialog.module.css";
@@ -199,7 +201,12 @@ export function CaseDialog() {
               )}
             </header>
 
-            <div className={styles.visual}>
+            <div
+              className={clsx(
+                styles.visual,
+                study.image ? styles.shot : THEMED_SKETCHES.has(study.sketch) && styles.themed,
+              )}
+            >
               <ProjectVisual study={study} sizes="(max-width: 1040px) 100vw, 1000px" />
             </div>
 

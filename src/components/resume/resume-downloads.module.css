@@ -173,6 +173,20 @@ a.card:hover .page {
 .pageAts .pSide {
   display: none;
 }
+/* Photo top right: portfolio styles only, like the PDFs */
+.pPhoto {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 8px;
+  height: 11px;
+  border-radius: 1.5px;
+  background: var(--p-ink);
+  opacity: 0.3;
+}
+.pageAts .pPhoto {
+  display: none;
+}
 .pageDark {
   --p-bg: #06070a;
   --p-ink: #eef1f5;

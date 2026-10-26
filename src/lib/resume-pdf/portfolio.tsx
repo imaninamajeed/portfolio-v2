@@ -1,4 +1,7 @@
-import { Document, Link, Page, Path, Polygon, StyleSheet, Svg, Text, View } from "@react-pdf/renderer";
+import path from "node:path";
+
+// Renamed so jsx-a11y doesn't treat it as an <img>: react-pdf images have no alt text.
+import { Document, Image as PdfImage, Link, Page, Path, StyleSheet, Svg, Text, View } from "@react-pdf/renderer";
 
 import { RESUME, type ResumeProjectStatus } from "@/data/resume";
 
@@ -25,6 +28,7 @@ const PALETTES = {
     accent: "#C8FF3D", // volt
     accentSoft: "rgba(200,255,61,0.10)",
     data: "#7CE7FF", // ice
+    photoLine: "transparent", // the white photo already stands out on dark
     status: { "Live demo": "#C8FF3D", Prototype: "#7CE7FF", "In development": "#B6A4FF", Concept: "#8C94A3" },
   },
   light: {
@@ -38,14 +42,18 @@ const PALETTES = {
     accent: "#4C7A00", // volt-fg: readable on light
     accentSoft: "rgba(76,122,0,0.10)",
     data: "#0A6E8F", // ice-fg
+    photoLine: "#CDD0C8", // keeps the white photo from melting into the page
     status: { "Live demo": "#4C7A00", Prototype: "#0A6E8F", "In development": "#6D55E0", Concept: "#646A75" },
   },
 } satisfies Record<PortfolioMode, { status: Record<ResumeProjectStatus, string> } & Record<string, string | object>>;
 
 type Palette = (typeof PALETTES)[PortfolioMode];
 
-const VOLT = "#C8FF3D";
-const VOLT_INK = "#0A0D03";
+const PHOTO = path.join(process.cwd(), "public", RESUME.photo);
+// Wider than the photo's own ratio (1284 × 1830), so "cover" zooms in a little; the crop is
+// biased to the bottom (see `photo`) so the top of the head stays in frame.
+const PHOTO_W = 76;
+const PHOTO_H = 90;
 
 const STATUS_ICON: Record<ResumeProjectStatus, PdfIconName> = {
   "Live demo": "circle-play",
@@ -71,8 +79,9 @@ const BRAND = {
     "M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12",
 };
 
-// Shown as an even 3×2 grid; concepts stay on the web page and the ATS PDF.
-const PROJECTS = RESUME.projects.filter((p) => p.status !== "Concept");
+// Shown as an even 3×2 grid that keeps this PDF to two pages; concepts and projects marked
+// `portfolioPdf: false` stay on the web page and the ATS PDF.
+const PROJECTS = RESUME.projects.filter((p) => p.status !== "Concept" && p.portfolioPdf !== false);
 const PROJECT_ROWS = Array.from({ length: Math.ceil(PROJECTS.length / 2) }, (_, i) => PROJECTS.slice(i * 2, i * 2 + 2));
 
 const hexAlpha = (hex: string, a: number) => {
@@ -93,19 +102,20 @@ function createStyles(c: Palette) {
     },
 
     /* Header */
-    head: { flexDirection: "row", alignItems: "center" },
-    mark: { width: 42, height: 42, marginRight: 14, position: "relative" },
-    markText: {
+    header: { position: "relative" },
+    head: { paddingRight: PHOTO_W + 16 },
+    // Images ignore borders, so the hairline is on a frame around it
+    photoFrame: {
       position: "absolute",
-      top: 12,
-      left: 0,
-      width: 42,
-      textAlign: "center",
-      fontFamily: "Oxanium",
-      fontWeight: 700,
-      fontSize: 13,
-      color: VOLT_INK,
+      top: 0,
+      right: 0,
+      width: PHOTO_W,
+      height: PHOTO_H,
+      borderRadius: 6,
+      borderWidth: 0.75,
+      borderColor: c.photoLine,
     },
+    photo: { width: "100%", height: "100%", borderRadius: 5.25, objectFit: "cover", objectPosition: "50% 25%" },
     name: { fontFamily: "Oxanium", fontWeight: 700, fontSize: 22, color: c.text, lineHeight: 1.1 },
     title: { marginTop: 3, fontFamily: "Oxanium", fontWeight: 600, fontSize: 11, color: c.accent },
 
@@ -113,6 +123,7 @@ function createStyles(c: Palette) {
       flexDirection: "row",
       flexWrap: "wrap",
       marginTop: 14,
+      paddingRight: PHOTO_W + 16,
       paddingBottom: 13,
       borderBottomWidth: 0.75,
       borderBottomColor: c.line2,
@@ -269,33 +280,31 @@ export function PortfolioResume({ mode }: { mode: PortfolioMode }) {
   return (
     <Document title={`${RESUME.name} — Résumé`} author={RESUME.name} subject={RESUME.title} language="en">
       <Page size="A4" style={s.page}>
-        {/* ---------- Header ---------- */}
-        <View style={s.head}>
-          <View style={s.mark}>
-            <Svg width={42} height={42} viewBox="0 0 42 42">
-              <Polygon points="10.5,0 31.5,0 42,21 31.5,42 10.5,42 0,21" fill={VOLT} />
-            </Svg>
-            <Text style={s.markText}>IM</Text>
-          </View>
-          <View>
+        {/* ---------- Header: name and contact; photo top right ---------- */}
+        <View style={s.header}>
+          <View style={s.head}>
             <Text style={s.name}>{RESUME.name}</Text>
             <Text style={s.title}>{RESUME.title}</Text>
           </View>
-        </View>
 
-        <View style={s.contact}>
-          {contact.map((item) => (
-            <View key={item.label} style={s.contactItem}>
-              {item.icon}
-              {item.href ? (
-                <Link src={item.href} style={s.contactText}>
-                  {item.label}
-                </Link>
-              ) : (
-                <Text style={s.contactText}>{item.label}</Text>
-              )}
-            </View>
-          ))}
+          <View style={s.contact}>
+            {contact.map((item) => (
+              <View key={item.label} style={s.contactItem}>
+                {item.icon}
+                {item.href ? (
+                  <Link src={item.href} style={s.contactText}>
+                    {item.label}
+                  </Link>
+                ) : (
+                  <Text style={s.contactText}>{item.label}</Text>
+                )}
+              </View>
+            ))}
+          </View>
+
+          <View style={s.photoFrame}>
+            <PdfImage src={PHOTO} style={s.photo} />
+          </View>
         </View>
 
         {/* ---------- Page 1: summary + experience, skills panel ---------- */}

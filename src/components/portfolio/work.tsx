@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { ArrowUpRight } from "lucide-react";
 
 import { CASES, caseHref, pad } from "@/data/portfolio";
@@ -5,6 +6,7 @@ import { cssVars } from "@/lib/dom";
 
 import { Icon } from "./icon";
 import { ProjectVisual } from "./project-visual";
+import { THEMED_SKETCHES } from "./sketch";
 import { LinkButton, PillList, SectionHead, Status } from "./ui";
 
 import styles from "./work.module.css";
@@ -67,11 +69,17 @@ export function Work() {
             </div>
 
             {/* Mouse shortcut to the same case; keyboard and screen-reader users get the button above. */}
-            <a className={styles.visual} href={caseHref(study.id)} tabIndex={-1} aria-hidden="true" data-inview="">
+            <a
+              className={clsx(
+                styles.visual,
+                study.image ? styles.shot : THEMED_SKETCHES.has(study.sketch) && styles.themed,
+              )}
+              href={caseHref(study.id)}
+              tabIndex={-1}
+              aria-hidden="true"
+              data-inview=""
+            >
               <ProjectVisual study={study} sizes="(max-width: 1080px) 100vw, 560px" priority={i === 0} />
-              <span className={styles.hint}>
-                Open case <ArrowUpRight />
-              </span>
             </a>
           </article>
         ))}

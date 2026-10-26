@@ -31,6 +31,7 @@ const OPTIONS = [
 function PagePreview({ className }: { className: string }) {
   return (
     <span className={`${styles.page} ${className}`} aria-hidden="true">
+      <span className={styles.pPhoto} />
       <span className={styles.pName} />
       <span className={styles.pTitle} />
       <span className={styles.pRule} />

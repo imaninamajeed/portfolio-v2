@@ -4,7 +4,7 @@
  * verified numbers only, prototypes labelled as prototypes.
  */
 
-import type { CaseId, IconName } from "./portfolio";
+import { SITE, type CaseId, type IconName } from "./portfolio";
 
 export type ResumeProjectStatus = "Live demo" | "Prototype" | "In development" | "Concept";
 
@@ -33,6 +33,8 @@ export interface ResumeProject {
   link?: { label: string; href: string };
   /** Portfolio case study, if there is one (screen only). */
   caseId?: CaseId;
+  /** False leaves it out of the portfolio-style PDFs, whose 3×2 grid holds six projects. */
+  portfolioPdf?: false;
 }
 
 export const RESUME = {
@@ -40,9 +42,11 @@ export const RESUME = {
   /** One plain job title line: what ATS and recruiters search for. */
   title: "Software Engineer — Frontend & Product UI/UX",
   location: "Subang Jaya, Selangor, Malaysia",
-  email: "imaninamajeed@gmail.com",
+  email: SITE.email,
   /** Printed PDF only; never rendered into the page HTML (see PrintPhone). */
   phone: "+60 18-388 5790",
+  /** Portrait in `public/`, used as-is, top right of the portfolio-style PDFs only (not the web page or the ATS PDF). */
+  photo: "/images/IMG_0336.JPG",
   links: [
     { label: "imanina.vercel.app", href: "https://imanina.vercel.app" },
     { label: "linkedin.com/in/imaninamajeed", href: "https://linkedin.com/in/imaninamajeed" },
@@ -53,7 +57,7 @@ export const RESUME = {
   highlights: [
     { value: "4+ yrs", label: "building web products" },
     { value: "15", label: "modules in one shipped dashboard" },
-    { value: "7", label: "products & prototypes" },
+    { value: "8", label: "products & prototypes" },
     { value: "1st", label: "Class Honours, Computer Science" },
   ],
 
@@ -91,7 +95,7 @@ export const RESUME = {
     {
       icon: "server",
       title: "Backend & integration",
-      items: ["REST APIs", "FastAPI", "Node.js", "Express.js", "Axios", "MQTT", "JWT authentication", "Postman"],
+      items: ["REST APIs", "FastAPI", "Flask", "Node.js", "Express.js", "Axios", "MQTT", "JWT authentication", "Postman"],
     },
     {
       icon: "git-branch",
@@ -134,7 +138,7 @@ export const RESUME = {
     },
   ] satisfies ResumeRole[],
 
-  // Strongest and most verifiable first.
+  // Newest year first; within a year, strongest and most verifiable first.
   projects: [
     {
       title: "KKR NITMC Dashboard",
@@ -187,17 +191,6 @@ export const RESUME = {
       caseId: "mrt-operations-monitor",
     },
     {
-      title: "ANPR Vision & ARM VINO ANPR Webview",
-      subtitle: "Plate-recognition interfaces",
-      year: 2026,
-      status: "Prototype",
-      stack: ["React", "Next.js", "TypeScript", "Tailwind CSS", "FastAPI", "MQTT", "Docker"],
-      bullets: [
-        "Designed ANPR/LPR interfaces for camera monitoring, evidence search, traffic flow and journey analytics.",
-        "Shaped an engineer control panel for engine lifecycle, JSON configuration, reference plate images and system health.",
-      ],
-    },
-    {
       title: "Jalur",
       subtitle: "Highway operations web platform",
       year: 2026,
@@ -209,6 +202,15 @@ export const RESUME = {
       ],
     },
     {
+      title: "ANPR Vision",
+      subtitle: "Plate-recognition interfaces",
+      year: 2026,
+      status: "Prototype",
+      stack: ["React", "Next.js", "TypeScript", "Tailwind CSS", "FastAPI", "MQTT", "Docker"],
+      bullets: ["Designed ANPR/LPR interfaces for camera monitoring, evidence search, traffic flow and journey analytics."],
+      portfolioPdf: false,
+    },
+    {
       title: "RoadMaster Maintenance",
       subtitle: "CMMS concepts",
       year: 2026,
@@ -218,6 +220,19 @@ export const RESUME = {
         "Developed concepts for asset registers, work orders, inspections, preventive maintenance, inventory and reporting.",
         "Designed role-based workflows for field inspectors, mechanics and operations teams, with standard patterns for statuses, priorities, filters and forms.",
       ],
+    },
+    {
+      title: "ARM VINO ANPR Webview",
+      subtitle: "ANPR camera control panel",
+      year: 2021,
+      status: "Live demo",
+      stack: ["Flask", "jQuery", "Bootstrap", "JSON Schema", "Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui"],
+      bullets: [
+        "Built a web control panel for an edge ANPR engine: start, stop and restart it, edit its configuration through JSON Schema forms validated before saving, and manage reference plate images.",
+        "Rebuilt it in 2026 as a browser-only Next.js editor with drag-to-draw crop and detection zones, English and Malay, and config import/export; deployed on Vercel.",
+      ],
+      link: { label: "arm-vino.vercel.app", href: "https://arm-vino.vercel.app" },
+      caseId: "arm-vino-anpr-webview",
     },
   ] satisfies ResumeProject[],
 

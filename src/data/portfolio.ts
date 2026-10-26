@@ -15,6 +15,7 @@ export type IconName =
   | "chart-column"
   | "train-front"
   | "scan-eye"
+  | "cctv"
   | "layout-template"
   | "chart-line"
   | "server"
@@ -27,14 +28,15 @@ export type IconName =
 export type ProjectStatus = "Prototype" | "Completed" | "In progress" | "Concept";
 
 /** Which animated interface sketch to draw when a case has no screenshot. */
-export type SketchKind = "map" | "table" | "periods" | "line" | "pipeline";
+export type SketchKind = "map" | "table" | "periods" | "line" | "pipeline" | "anpr";
 
 export type CaseId =
   | "kkr-nitmc-dashboard"
   | "cmms-plus"
   | "analytics-presentation"
   | "mrt-operations-monitor"
-  | "roadops";
+  | "roadops"
+  | "arm-vino-anpr-webview";
 
 export interface Metric {
   v: string;
@@ -143,6 +145,7 @@ export const SITE = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://imanina.vercel.app",
   /** Résumé page (web version, prints to PDF). The original PDF is still in `public/resume/`. */
   resume: "/resume",
+  email: "imaninamajeed@gmail.com",
   linkedin: "https://linkedin.com/in/imaninamajeed",
   github: "https://github.com/imaninamajeed",
 } as const;
@@ -204,7 +207,6 @@ export const CASES: CaseStudy[] = [
     sketch: "map",
     links: [
       { label: "Live demo", href: "https://kkr-nextjs.vercel.app/", icon: "external-link", primary: true },
-      { label: "Repository", href: "https://github.com/imaninamajeed/kkr-nextjs", icon: "github" },
     ],
     metrics: [
       { v: "15", l: "dashboard modules" },
@@ -328,6 +330,36 @@ export const CASES: CaseStudy[] = [
     result: "A clear product direction for computer vision in road maintenance.",
     stack: ["Next.js", "TypeScript", "Computer vision", "Maps"],
   },
+  {
+    id: "arm-vino-anpr-webview",
+    title: "ARM VINO ANPR Webview",
+    short: "ARM VINO",
+    icon: "cctv",
+    domain: "Plate recognition · Edge AI",
+    year: 2021,
+    status: "Completed",
+    line: "Set up a plate-recognition camera from the browser, not the terminal.",
+    role: "Frontend development · UI design · 2026 rebuild",
+    sketch: "anpr",
+    links: [
+      { label: "Live demo", href: "https://arm-vino.vercel.app", icon: "external-link", primary: true },
+    ],
+    metrics: [
+      { v: "3", l: "engine controls: start, stop, restart" },
+      { v: "6", l: "config sections, validated" },
+      { v: "2", l: "languages: English & Malay" },
+    ],
+    problem:
+      "Tuning an ANPR camera meant editing the engine’s JSON config on the device and restarting it from a terminal.",
+    did: [
+      "Web panel to start, stop and restart the engine on the device",
+      "Config forms built from the engine’s JSON Schema, checked before saving",
+      "Upload, view and delete the reference plate images",
+      "Rebuilt in 2026 in Next.js, with crop and detection zones drawn on a frame",
+    ],
+    result: "Cameras are set up from a browser. The rebuilt editor runs on Vercel and sends nothing to a server.",
+    stack: ["Flask", "jQuery", "JSON Schema", "Bootstrap", "Next.js", "TypeScript", "shadcn/ui"],
+  },
 ];
 
 export const ARCHIVE: ArchiveEntry[] = [
@@ -341,6 +373,7 @@ export const ARCHIVE: ArchiveEntry[] = [
   { year: 2026, title: "Visual Analytics Interfaces", desc: "Camera output turned into evidence", domain: "Computer vision", stack: "React · TS · CV", status: "Prototype" },
   { year: 2026, title: "Developer Source Viewer", desc: "Inspect API responses in-product", domain: "Dev tools", stack: "Next.js · TS · JSON", status: "Concept" },
   { year: 2026, title: "Recogine Company Site", desc: "Products and capabilities, clearly told", domain: "Web", stack: "HTML · CSS · JS", status: "In progress" },
+  { year: 2021, title: "ARM VINO ANPR Webview", desc: "Plate-recognition camera setup in the browser", domain: "Computer vision", stack: "Flask · jQuery · Next.js", status: "Completed", caseId: "arm-vino-anpr-webview" },
   { year: 2021, title: "Traffic Vehicle Analytics", desc: "Public traffic data dashboard", domain: "Analytics", stack: "React · JS", status: "Completed" },
   { year: 2021, title: "Train Load Indicator", desc: "Train crowding at a glance", domain: "Transport", stack: "React · Chart.js", status: "Completed" },
   { year: 2021, title: "React Weather Search", desc: "Weather search with live API data", domain: "Web", stack: "React · Axios", status: "Completed" },
@@ -422,7 +455,7 @@ export const groupScore = (g: SkillGroup) =>
 export const TOOLKIT: ToolkitGroup[] = [
   { icon: "layout-template", title: "Frontend", items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui"] },
   { icon: "chart-line", title: "Data & viz", items: ["Recharts", "Chart.js", "Grafana", "PostgreSQL", "SQL"] },
-  { icon: "server", title: "Backend", items: ["FastAPI", "Node.js", "Express", "REST APIs"] },
+  { icon: "server", title: "Backend", items: ["FastAPI", "Flask", "Node.js", "Express", "REST APIs"] },
   { icon: "git-branch", title: "Delivery", items: ["Docker", "Git", "GitHub", "GitLab", "Vercel"] },
 ];
 
